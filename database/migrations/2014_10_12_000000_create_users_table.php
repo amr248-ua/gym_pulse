@@ -16,6 +16,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('usuario');
+            $table->float('saldo');
+            $table->boolean('webmaster');
+            $table->boolean('recepcionista');
+            $table->boolean('socio');
             $table->string('nombre');
             $table->string('apellidos');
             $table->string('codigo_postal');
