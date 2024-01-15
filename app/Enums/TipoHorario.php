@@ -18,4 +18,8 @@ enum TipoHorario: string {
     case HORA10 = '19:00-20:00';
     case HORA11 = '20:00-21:00';
     case HORA12 = '21:00-22:00';
+    case DIAENTERO = '9:00-22:00';
+    case FINDESEMANA = '9:00-14:00';
+    case SOLODIA = '9:00-13:00';
+    case SOLOTARDE = '16:00-22:00';
 }
