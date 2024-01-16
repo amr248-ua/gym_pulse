@@ -53,6 +53,15 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'birthday' => ['required', 'date'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:10'],
+            'email_confirmation' => ['required', 'string', 'email', 'max:255', 'same:email'],
+            'password_confirmation' => ['required', 'string', 'min:8', 'same:password'],
+            'dni' => ['required', 'string', 'max:9'],
+            'address' => ['required', 'string', 'max:255'],
+            'postal_code' => ['required', 'string', 'max:5'],
+            'username' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -65,9 +74,17 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'nombre' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'fecha_nacimiento' => $data['birthday'],
+            'apellidos' => $data['last_name'],
+            'telefono' => $data['phone'],
+            'dni' => $data['dni'],
+            'direccion' => $data['address'],
+            'codigo_postal' => $data['postal_code'],
+            'usuario' => $data['username'],            
+            
         ]);
     }
 }

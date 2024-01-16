@@ -4,8 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+            <div class="card bg-dark text-white square-card">
+                <div class="card-header text-center">
+                    <h2>GymPulse</h2>
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -53,7 +55,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-danger">
                                     {{ __('Login') }}
                                 </button>
 
@@ -71,3 +73,4 @@
     </div>
 </div>
 @endsection
+
