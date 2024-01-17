@@ -34,15 +34,18 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                     @if(request()->is('/'))
+                            @auth
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Actividades') }}</a>
+                                    <a class="nav-link" href="{{ route('actividades.showActividades') }}">{{ __('Actividades') }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Material') }}</a>
                                 </li>
+                                
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Reserva') }}</a>
+                                    <a class="nav-link" href="{{ route('instalaciones.showInstalaciones') }}">{{ __('Reserva') }}</a>
                                 </li>
+                            @endauth
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Gimnasio') }}</a>
                                 </li>
