@@ -4,9 +4,9 @@
 @section('content')
     <div class="container-fluid mt-5">
         <div class="row justify-content-center">
-        <div class="d-flex justify-content-center mb-4">
-                    <h2>Actividades en nuestros centros</h2>
-                </div>
+            <div class="d-flex justify-content-center mb-4">
+                <h2>Actividades en nuestros centros</h2>
+            </div>
             @foreach ($actividades as $actividad)
                 <div class="col-md-3 mb-4">
                     <div class="card text-white bg-dark mx-auto">
@@ -27,5 +27,6 @@
     <div class="d-flex justify-content-center mt-4">
         {{ $actividades->links() }}
     </div>
+    <div style="position: relative; width: 100%; height: 80px; background-color: white; margin-top: 30px;"></div>
 @endsection
 @endauth
