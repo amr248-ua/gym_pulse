@@ -22,7 +22,7 @@ class InstallationsTableSeeder extends Seeder
         //Insertamos usuarios en la tabla
         $instalacion1 = new Installation();
         $instalacion1->nombre="Pista de tenis 1";
-        $instalacion1->imagen="/public/img/actividades/instalacion1.jpg";
+        $instalacion1->imagen="img/instalaciones/instalacion1.jpg";
         $instalacion1->plazas=4;
         $instalacion1->precio=14.99;
         $instalacion1->maxTiempo=120;
@@ -31,7 +31,7 @@ class InstallationsTableSeeder extends Seeder
 
         $instalacion2 = new Installation();
         $instalacion2->nombre="Pista de tenis 2";
-        $instalacion2->imagen="/public/img/actividades/instalacion2.jpg";
+        $instalacion2->imagen="img/instalaciones/instalacion1.jpg";
         $instalacion2->plazas=4;
         $instalacion2->precio=14.99;
         $instalacion2->maxTiempo=120;
@@ -40,7 +40,7 @@ class InstallationsTableSeeder extends Seeder
 
         $instalacion3 = new Installation();
         $instalacion3->nombre="Pista de tenis 3";
-        $instalacion3->imagen="/public/img/actividades/instalacion3.jpg";
+        $instalacion3->imagen="img/instalaciones/instalacion1.jpg";
         $instalacion3->plazas=4;
         $instalacion3->precio=14.99;
         $instalacion3->maxTiempo=120;
@@ -49,7 +49,7 @@ class InstallationsTableSeeder extends Seeder
 
         $instalacion4 = new Installation();
         $instalacion4->nombre="Pista de tenis 4";
-        $instalacion4->imagen="/public/img/actividades/instalacion4.jpg";
+        $instalacion4->imagen="img/instalaciones/instalacion1.jpg";
         $instalacion4->plazas=4;
         $instalacion4->precio=14.99;
         $instalacion4->maxTiempo=120;
@@ -58,7 +58,7 @@ class InstallationsTableSeeder extends Seeder
 
         $instalacion5 = new Installation();
         $instalacion5->nombre="Pista de tenis 5";
-        $instalacion5->imagen="/public/img/actividades/instalacion5.jpg";
+        $instalacion5->imagen="img/instalaciones/instalacion1.jpg";
         $instalacion5->plazas=4;
         $instalacion5->precio=14.99;
         $instalacion5->maxTiempo=120;
@@ -67,7 +67,7 @@ class InstallationsTableSeeder extends Seeder
 
         $instalacion6 = new Installation();
         $instalacion6->nombre="Pista de padel 1";
-        $instalacion6->imagen="/public/img/actividades/instalacion6.jpg";
+        $instalacion6->imagen="img/instalaciones/instalacion6.jpg";
         $instalacion6->plazas=4;
         $instalacion6->precio=14.99;
         $instalacion6->maxTiempo=120;
@@ -76,7 +76,7 @@ class InstallationsTableSeeder extends Seeder
 
         $instalacion7 = new Installation();
         $instalacion7->nombre="Pista de padel 2";
-        $instalacion7->imagen="/public/img/actividades/instalacion7.jpg";
+        $instalacion7->imagen="img/instalaciones/instalacion7.jpg";
         $instalacion7->plazas=4;
         $instalacion7->precio=14.99;
         $instalacion7->maxTiempo=120;
@@ -85,7 +85,7 @@ class InstallationsTableSeeder extends Seeder
 
         $instalacion8 = new Installation();
         $instalacion8->nombre="Pista de padel 3";
-        $instalacion8->imagen="/public/img/actividades/instalacion8.jpg";
+        $instalacion8->imagen="img/instalaciones/instalacion8.jpg";
         $instalacion8->plazas=4;
         $instalacion8->precio=14.99;
         $instalacion8->maxTiempo=120;
@@ -94,7 +94,7 @@ class InstallationsTableSeeder extends Seeder
         
         $instalacion9 = new Installation();
         $instalacion9->nombre="Pista de padel 4";
-        $instalacion9->imagen="/public/img/actividades/instalacion9.jpg";
+        $instalacion9->imagen="img/instalaciones/instalacion9.jpg";
         $instalacion9->plazas=4;
         $instalacion9->precio=14.99;
         $instalacion9->maxTiempo=120;
@@ -103,7 +103,7 @@ class InstallationsTableSeeder extends Seeder
 
         $instalacion10 = new Installation();
         $instalacion10->nombre="Pista de padel 5";
-        $instalacion10->imagen="/public/img/actividades/instalacion10.jpg";
+        $instalacion10->imagen="img/instalaciones/instalacion10.jpg";
         $instalacion10->plazas=4;
         $instalacion10->precio=14.99;
         $instalacion10->maxTiempo=120;
@@ -112,7 +112,7 @@ class InstallationsTableSeeder extends Seeder
 
         $instalacion11 = new Installation();
         $instalacion11->nombre="Piscina interior";
-        $instalacion11->imagen="/public/img/actividades/instalacion11.jpg";
+        $instalacion11->imagen="img/instalaciones/instalacion11.jpg";
         $instalacion11->plazas=40;
         $instalacion11->precio=9.99;
         $instalacion11->maxTiempo=60;
@@ -121,7 +121,7 @@ class InstallationsTableSeeder extends Seeder
 
         $instalacion12 = new Installation();
         $instalacion12->nombre="Rocodromo";
-        $instalacion12->imagen="/public/img/actividades/instalacion12.jpg";
+        $instalacion12->imagen="img/instalaciones/instalacion12.jpg";
         $instalacion12->plazas=20;
         $instalacion12->precio=9.99;
         $instalacion12->maxTiempo=60;
