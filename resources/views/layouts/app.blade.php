@@ -92,9 +92,13 @@
             @yield('content')
         </main>
 
-        <footer class="footer bg-dark text-white text-center py-3">
+        <footer class="footer bg-dark text-white text-center py-3 fixed-bottom">
+    <section class="footers border pt-5 pb-3 bg-dark text-light">
+        <div class="flex-wrapper">
             © {{ date('Y') }} GymPulse
-        </footer>
+        </div>
+    </section>
+</footer>
     </div>
 </body>
 </html>
