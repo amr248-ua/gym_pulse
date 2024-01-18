@@ -68,15 +68,20 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                        <li class="nav-item">
+                            <div class="dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->usuario }}
+                                    {{ Auth::user()->saldo }} € | {{ Auth::user()->usuario }}
                                 </a>
-
+                                
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('perfil', Auth::user()->id) }}">
+                                        {{ __('Perfil') }}
+                                    </a>
+                                    
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                        onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -84,7 +89,10 @@
                                         @csrf
                                     </form>
                                 </div>
-                            </li>
+                            </div>
+                        </li>
+
+
                         @endguest
                     </ul>
                 </div>

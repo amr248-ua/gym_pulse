@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InstalacionesController;
 use App\Http\Controllers\ActividadesController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +27,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('instalaciones', [InstalacionesController::class, 'showInstalaciones'])->name('instalaciones.showInstalaciones');
 Route::get('instalaciones/{id}', [InstalacionesController::class, 'showInstalacion'])->name('instalacion');
 Route::post('reservarInstalacion', [InstalacionesController::class, 'reservarInstalacion'])->name('instalacion.reservarInstalacion');
-
+Route::get('perfil/{id}', [UserController::class, 'showDatos'])->name('perfil');
 Route::get('actividades', [ActividadesController::class, 'showActividades'])->name('actividades.showActividades');
 
 
