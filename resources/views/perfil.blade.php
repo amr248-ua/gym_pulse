@@ -30,9 +30,11 @@
                     <p style="display: inline-block; font-weight: bold; font-size: 20px; margin-right: 10px;">Código Postal:</p>
                     <span style="display: inline-block; font-size: 20px;">{{ Auth::user()->codigo_postal }}</span>
                     <br />
-                    <button style="background-color: #DE0000; color: white; padding: 15px 30px; font-size: 1.5em; border: 2px solid white; border-radius: 10px; font-weight: bold; cursor: pointer;">
-                        Modificar datos
-                    </button>
+                    <a href="{{ route('perfil.actualizarDatos', ['id' => Auth::user()->id]) }}">
+                        <button style="background-color: #DE0000; color: white; padding: 15px 30px; font-size: 1.5em; border: 2px solid white; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                            Modificar datos
+                        </button>
+                    </a>
                 </div>
 
                 <div style="width: 500px; background-color: #fff; margin-left: 150px; padding: 20px; border-radius: 10px; color: #000;">

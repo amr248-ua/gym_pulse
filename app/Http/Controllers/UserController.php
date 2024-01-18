@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public function showDatos($id){
-        $usuario = User::findOrFail($id);
         return view('perfil');
+    }
+
+    public function actualizarDatos($id){
+        return view('modPerfil');
     }
 }
