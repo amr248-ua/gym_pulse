@@ -3,6 +3,7 @@
 use App\Http\Controllers\InstalacionesController;
 use App\Http\Controllers\ActividadesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AboutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/acerca-de', [AboutController::class, 'index'])->name('about');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -26,3 +30,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('instalaciones', [InstalacionesController::class, 'showInstalaciones'])->name('instalaciones.showInstalaciones');
 
 Route::get('actividades', [ActividadesController::class, 'showActividades'])->name('actividades.showActividades');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

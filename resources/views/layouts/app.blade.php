@@ -41,7 +41,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Material') }}</a>
                                 </li>
-                                
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('instalaciones.showInstalaciones') }}">{{ __('Reserva') }}</a>
                                 </li>
@@ -97,6 +97,7 @@
 
         <footer class="footer bg-dark text-white text-center py-3 fixed-bottom">
     <section class="footers border pt-5 pb-3 bg-dark text-light">
+    <p><a href="{{ route('about') }}">Quienes somos</a></p>
         <div class="flex-wrapper">
             © {{ date('Y') }} GymPulse
         </div>
