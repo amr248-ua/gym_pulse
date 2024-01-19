@@ -1,9 +1,9 @@
-<!-- resources/views/about.blade.php -->
+
 
 @extends('layouts.app')
 
 @section('content')
-    <div class="about-us">
+    <div class="container-fluid mt-5">
     <h3 style="color: black; font-size: 3.5em; font-weight: bold; position: absolute; top: 90px; left: 20px;">Nuestra historia:</h3>
     <h3 style="color: black; font-size: 1.5em; font-weight: bold; position: absolute; top: 170px; left: 20px;">  GymPulse nace de la vision compartida de un grupo apasionado por el
         bienestar y la vitalidad.</h3>
@@ -23,5 +23,7 @@
         la pasión por el bienestar se encuentra con la determinación para lograrlo .</h3>
     </div>
 
-    <img src="/images/about.JPG" style="height: auto; width: auto; max-width: 640px; position: absolute; left: 1040px; top: 120px;">
+    <div class="container-fluid mt-5 d-flex justify-content-end">
+        <img src="/images/about.JPG" style="height: auto; width: auto; max-width: 640px;">
+    </div>
 @endsection
