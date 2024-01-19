@@ -42,7 +42,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Material') }}</a>
                                 </li>
-                                
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('instalaciones.showInstalaciones') }}">{{ __('Reserva') }}</a>
                                 </li>
@@ -74,12 +74,12 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->saldo }} € | {{ Auth::user()->usuario }}
                                 </a>
-                                
+
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('perfil', Auth::user()->id) }}">
                                         {{ __('Perfil') }}
                                     </a>
-                                    
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
@@ -105,13 +105,13 @@
         </main>
 
         <footer style="margin-top: 200px;">
-        
+
         <section class="footers border  pt-5 pb-3 bg-dark text-light">
         <div class="flex-wrapper">
             <div class="container-fluid mt-5 pt-5 text-center text-md-start">
                 <div class="row text-center text-md-start text-start">
                     <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                        <h5 class="text-uppercase mb-4 font-weight-bold">¿Quienes somos?</h5>
+                    <h5 class="text-uppercase mb-4 font-weight-bold"><a href="{{ route('about') }}">¿Quienes somos?</a></h5>
                         <hr class="bg-light border-2 border-top border-light mb-4">
                         <p>
                             Somos el mejor gimnasio de la provincia de Alicante y en un futuro de toda Esapaña, confíe en nosotros, nosotros siempre lo haremos en usted.
