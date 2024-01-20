@@ -27,8 +27,14 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('actividades', [ActividadesController::class, 'showActividades'])->name('actividades.showActividades');
+Route::get('actividades/{id}', [ActividadesController::class, 'showActividad'])->name('actividad');
+Route::post('reservarActividadRecepcionista', [ActividadesController::class, 'actividadRecepcionista'])->name('actividad.actividadRecepcionista');
+Route::post('reservarActividad', [ActividadesController::class, 'reservarActividad'])->name('actividad.reservarActividad');
+
 Route::get('instalaciones', [InstalacionesController::class, 'showInstalaciones'])->name('instalaciones.showInstalaciones');
 Route::get('instalaciones/{id}', [InstalacionesController::class, 'showInstalacion'])->name('instalacion');
+Route::post('reservarInstalacionRecepcionista', [InstalacionesController::class, 'instalacionRecepcionista'])->name('instalacion.instalacionRecepcionista');
 Route::post('reservarInstalacion', [InstalacionesController::class, 'reservarInstalacion'])->name('instalacion.reservarInstalacion');
 
 Route::get('perfil/{id}', [UserController::class, 'showDatos'])->name('perfil');
@@ -39,5 +45,5 @@ Route::middleware(['auth'])->group(function () {
 Route::put('/actualizar-saldo/{id}', [UserController::class, 'actualizarSaldo'])
     ->name('actualizarSaldo');
 Route::get('recepcion', [UserController::class, 'recepcionistaView'])->name('recepcion.view');
-Route::get('actividades', [ActividadesController::class, 'showActividades'])->name('actividades.showActividades');
+
 Route::get('/buscar-usuario', [UserController::class, 'buscarUsuario'])->name('buscarUsuario');
