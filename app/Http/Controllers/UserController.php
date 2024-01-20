@@ -16,6 +16,10 @@ class UserController extends Controller
     public function actualizarDatosView($id){
         return view('modPerfil');
     }
+
+    public function recepcionistaView(){
+        return view('recepcionist');
+    }
     
     public function actualizarDatos(Request $request, $id) {
         // Validar los datos del formulario
@@ -43,5 +47,32 @@ class UserController extends Controller
         $usuario->save();
 
         return redirect()->route('perfil', ['id' => Auth::user()->id])->with('success', 'Perfil actualizado con éxito');
+    }
+
+    public function buscarUsuario(Request $request){
+        $usuarios = User::query();
+
+        if ($request->has('nombre_usuario')) {
+            $usuarios->where('nombre', 'like', '%' . $request->input('nombre_usuario') . '%')
+                ->orWhere('apellidos', 'like', '%' . $request->input('nombre_usuario') . '%')
+                ->orWhere('usuario', 'like', '%' . $request->input('nombre_usuario') . '%');
+        }
+
+        $usuarios = $usuarios->paginate(10);
+
+        return view('recepcionist', compact('usuarios'));
+    }
+
+    public function actualizarSaldo(Request $request, $id){
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'saldo_actual' => 'required|numeric',
+        ]);
+
+        $user->saldo = $request->input('saldo_actual');
+        $user->save();
+
+        return redirect()->back()->with('success', 'Saldo actualizado correctamente.');
     }
 }

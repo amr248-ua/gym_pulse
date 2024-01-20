@@ -36,7 +36,8 @@ Route::get('/usuarios/{id}/editar', [UserController::class, 'actualizarDatosView
 Route::middleware(['auth'])->group(function () {
     Route::put('/usuarios/{id}/editar', [UserController::class, 'actualizarDatos'])->name('perfil.actualizarDatos');
 });
-
+Route::put('/actualizar-saldo/{id}', [UserController::class, 'actualizarSaldo'])
+    ->name('actualizarSaldo');
+Route::get('recepcion', [UserController::class, 'recepcionistaView'])->name('recepcion.view');
 Route::get('actividades', [ActividadesController::class, 'showActividades'])->name('actividades.showActividades');
-
-
+Route::get('/buscar-usuario', [UserController::class, 'buscarUsuario'])->name('buscarUsuario');

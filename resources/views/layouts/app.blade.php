@@ -46,13 +46,17 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('instalaciones.showInstalaciones') }}">{{ __('Reserva') }}</a>
                                 </li>
+                                @if(Auth::user()->recepcionista)
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('recepcion.view') }}">{{ __('Recepcionista') }}</a>
+                                    </li>
+                                @endif
                             @endauth
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Gimnasio') }}</a>
                                 </li>
                             @endif
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
@@ -92,8 +96,6 @@
                                 </div>
                             </div>
                         </li>
-
-
                         @endguest
                     </ul>
                 </div>
