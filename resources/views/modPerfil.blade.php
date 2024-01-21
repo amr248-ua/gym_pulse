@@ -16,51 +16,39 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
-                            <input style="width: 100%;" type="text" class="form-control" id="nombre" name="nombre" value="{{ Auth::user()->nombre }} ">
+                            <input style="width: 150%;" type="text" class="form-control" id="nombre" name="nombre" value="{{ Auth::user()->nombre }} ">
                         </div>
                         <div class="mb-3">
                             <label for="apellidos" class="form-label">Apellidos</label>
-                            <input style="width: 100%;" type="text" class="form-control" id="apellidos" name="apellidos" value="{{ Auth::user()->apellidos }}">
+                            <input style="width: 150%;" type="text" class="form-control" id="apellidos" name="apellidos" value="{{ Auth::user()->apellidos }}">
                         </div>
                         <div class="mb-3">
-                            <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
-                            <input style="width: 100%;" type="text" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ Auth::user()->fecha_nacimiento }}">
+                            <label for="fecha_nacimiento" class="form-label">Fecha nacimiento</label>
+                            <input style="width: 150%;" type="text" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ Auth::user()->fecha_nacimiento }}">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Correo electrónico</label>
-                            <input style="width: 100%;" type="text" class="form-control" id="email" name="email" value="{{ Auth::user()->email}}">
-                        </div>
-                    </div>
-
-                    <!-- Columna centro -->
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="telefono" class="form-label">Teléfono</label>
-                            <input style="width: 100%;" type="text" class="form-control" id="telefono" name="telefono" value="{{ Auth::user()->telefono }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="dni" class="form-label">DNI</label>
-                            <input style="width: 100%;" type="text" class="form-control" id="dni" name="dni" value="{{ Auth::user()->dni }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="contrasena_actual" class="form-label">Contraseña actual</label>
-                            <input style="width: 100%;" type="password" class="form-control" id="contrasena_actual" name="contrasena_actual">
-                        </div>
-                        <div class="mb-3">
-                            <label for="contrasena_nueva" class="form-label">Contraseña nueva</label>
-                            <input style="width: 100%;" type="password" class="form-control" id="contrasena_nueva" name="contrasena_nueva">
+                            <input style="width: 150%;" type="text" class="form-control" id="email" name="email" value="{{ Auth::user()->email}}">
                         </div>
                     </div>
 
                     <!-- Columna derecha -->
-                    <div class="col-md-4">
+                    <div class="col-md-4" style="margin-left: 100px;">
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input style="width: 150%;" type="text" class="form-control" id="telefono" name="telefono" value="{{ Auth::user()->telefono }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="dni" class="form-label">DNI</label>
+                            <input style="width: 150%;" type="text" class="form-control" id="dni" name="dni" value="{{ Auth::user()->dni }}">
+                        </div>
                         <div class="mb-3">
                             <label for="direccion" class="form-label">Dirección</label>
-                            <input style="width: 100%;" type="direccion" class="form-control" id="direccion" name="direccion" value="{{ Auth::user()->direccion }}">
+                            <input style="width: 150%;" type="direccion" class="form-control" id="direccion" name="direccion" value="{{ Auth::user()->direccion }}">
                         </div>
                         <div class="mb-3">
                             <label for="codigo_postal" class="form-label">Código Postal</label>
-                            <input style="width: 100%;" type="codigo_postal" class="form-control" id="codigo_postal" name="codigo_postal" value="{{ Auth::user()->codigo_postal }}">
+                            <input style="width: 150%;" type="codigo_postal" class="form-control" id="codigo_postal" name="codigo_postal" value="{{ Auth::user()->codigo_postal }}">
                         </div>
                     </div>
                 </div>

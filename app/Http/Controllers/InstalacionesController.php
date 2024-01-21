@@ -7,10 +7,13 @@ use App\Models\Installation;
 use App\Models\Installation_User;
 use App\Models\Calendar;
 use App\Models\Fee;
+use App\Models\Installation_NoUser;
+use App\Models\NoUser;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Transaction;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class InstalacionesController extends Controller
 {
@@ -22,28 +25,46 @@ class InstalacionesController extends Controller
 
     public function showInstalacion($id)
     {
-        // Obtener la instalación
+                // Obtener la instalación
         $instalacion = Installation::findOrFail($id);
 
         // Obtener los installation_ids de la tabla installation_users
         $installationUserIds = Installation_User::where('installation_id', $id)->pluck('calendar_id');
+        $installationNoUserIds = Installation_NoUser::where('installation_id', $id)->pluck('calendar_id');
+        $combinedIds = $installationUserIds->merge($installationNoUserIds);
+
+        // Obtener el número mínimo de coincidencias requeridas solo para 'Piscina interior' y 'Rocodromo'
+        if($instalacion->nombre == 'Piscina interior' || $instalacion->nombre == 'Rocodromo'){
+            $minCoincidencias = $instalacion->plazas;
+            Log::info('Minimo de coincidencias: ' . $minCoincidencias);
+        }
+        else
+            $minCoincidencias=0;
 
         // Obtener los calendarios correspondientes a los installation_ids
-        $calendars = Calendar::whereIn('id', $installationUserIds)->where('fecha', Carbon::today())->get();
+        $calendars = Calendar::whereIn('id', $combinedIds)->where('fecha', Carbon::today())->get();
 
-        // Obtener todas las horas desde las 9:00 hasta las 22:00
-        $horasTotales = $this->generarHorasTotales();
+        // Filtrar los calendar_id según el número mínimo de coincidencias y la misma hora
+        $filteredCalendars = $calendars->groupBy(['hora'])->filter(function ($groupedCalendars) use ($minCoincidencias) {
+            Log::info('Numero de coincidencias: ' . count($groupedCalendars));
+            return count($groupedCalendars) >= $minCoincidencias;
+        })->keys();
 
-        // Obtener las horas si la fecha es la de hoy
-        $horasHoy = $calendars->filter(function ($calendar) {
-            $fecha = Carbon::parse($calendar->fecha);
-            return $fecha->isToday();
+        Log::info('Calendarios filtrados: ' . $filteredCalendars);
+
+        // Obtener las horas si la fecha es la de hoy y cumple con los requisitos
+        $horasHoy = $calendars->filter(function ($calendar) use ($filteredCalendars) {
+            return $filteredCalendars->contains($calendar->id);
         })->pluck('hora');
 
+        $horasTotales = $this->generarHorasTotales();
+
         // Ajustar formato de las horas de hoy a 24 horas
-        $horasHoy = $horasHoy->map(function ($hora) {
+        $horasHoy = $filteredCalendars->map(function ($hora) {
             return Carbon::parse($hora)->format('H:i');
         });
+
+        Log:: info('Horas de hoy: ' . $horasHoy);
 
         // Excluir las horas de hoy de las horas totales
         $horasDisponibles = $horasTotales->diff($horasHoy);
@@ -70,6 +91,56 @@ class InstalacionesController extends Controller
         }
 
         return collect($horasTotales);
+    }
+
+    public function instalacionRecepcionista(Request $request){
+        DB::beginTransaction();
+
+        try {
+            // Obtener los datos del formulario
+            $instalacionId = $request->input('instalacion_id');
+            $hora = $request->input('hora');
+            $nouserDNI= $request->input('dni');
+            $nouserID = NoUser::where('dni', $nouserDNI)->value('id');
+
+            if($nouserID == ""){
+                $usuario = new NoUser();
+                
+                $usuario->nombre = $request->input('nombre');
+                $usuario->apellidos = $request->input('apellidos');
+                $usuario->dni = $request->input('dni');
+                $usuario->email = $request->input('email');
+                $usuario->save();
+                $nouserID = $usuario->id;
+                Log::info('NoUser creado con id: ' . $nouserID);
+            }
+
+            
+
+            // Obtener el id del calendario
+            $calendario = new Calendar();
+            $calendario->fecha = Carbon::today();
+            $calendario->hora = $hora;
+            $calendario->save();
+
+            // Crear la reserva
+            $installationUser = new Installation_NoUser();
+            $installationUser->installation_id = $instalacionId;
+            $installationUser->calendar_id = $calendario->id;
+            $installationUser->no_user_id = $nouserID;
+            $installationUser->duracion = 60;
+            $installationUser->save();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Manejar la excepción (por ejemplo, redirigir con un mensaje de error)
+            return redirect()->route('instalacion', $instalacionId)->with('error', $e->getMessage());
+        }
+
+        return redirect()->route('instalaciones.showInstalaciones');
+
     }
 
     public function reservarInstalacion(Request $request)

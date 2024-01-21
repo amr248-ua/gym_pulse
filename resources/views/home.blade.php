@@ -20,6 +20,8 @@
                         En cuanto uno de nuestros trabajadores confirme los datos de tu cuenta,
                         se te enviará un correo para informarte de que ya puedes disfrutar de tus ventajas de socio.
                     </p>
+
+                    
                 </div>
             </div>
         </div>
