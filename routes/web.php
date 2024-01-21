@@ -38,15 +38,6 @@ Route::post('reservarInstalacionRecepcionista', [InstalacionesController::class,
 Route::post('reservarInstalacion', [InstalacionesController::class, 'reservarInstalacion'])->name('instalacion.reservarInstalacion');
 
 Route::get('perfil/{id}', [UserController::class, 'showDatos'])->name('perfil');
-<<<<<<< HEAD
-Route::get('/usuarios/{id}/editar', [UserController::class, 'actualizarDatos'])->name('perfil.actualizarDatos');
-
-Route::get('actividades', [ActividadesController::class, 'showActividades'])->name('actividades.showActividades');
-
-//Rutas de webmaster
-
-Route::get('solicitudes', [UserController::class, 'showSolicitudes'])->name('webmaster.solicitudes');
-=======
 Route::get('/usuarios/{id}/editar', [UserController::class, 'actualizarDatosView'])->name('perfil.actualizarDatosView');
 Route::middleware(['auth'])->group(function () {
     Route::put('/usuarios/{id}/editar', [UserController::class, 'actualizarDatos'])->name('perfil.actualizarDatos');
@@ -54,6 +45,9 @@ Route::middleware(['auth'])->group(function () {
 Route::put('/actualizar-saldo/{id}', [UserController::class, 'actualizarSaldo'])
     ->name('actualizarSaldo');
 Route::get('recepcion', [UserController::class, 'recepcionistaView'])->name('recepcion.view');
->>>>>>> develop
 
 Route::get('/buscar-usuario', [UserController::class, 'buscarUsuario'])->name('buscarUsuario');
+
+//Rutas de webmaster
+
+Route::get('solicitudes', [UserController::class, 'showSolicitudes'])->name('webmaster.solicitudes');
