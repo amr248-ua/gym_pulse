@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Installation;
 use App\Models\Activity;
+use App\Models\Fee;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -30,7 +31,8 @@ class UserController extends Controller
     public function recepcionistaInsViewInstalacion(){
         $instalaciones = Installation::all();
         $actividades = Activity::all();
-        return view('receptionistIns', ['instalaciones' => $instalaciones, 'actividades' => $actividades]);
+        $tarifas = Fee::all();
+        return view('receptionistIns', ['instalaciones' => $instalaciones, 'actividades' => $actividades, 'tarifas' => $tarifas]);
     }
     
 
@@ -46,6 +48,14 @@ class UserController extends Controller
         $actividad = Activity::findOrFail($id);
         $actividad->precio = $request->input('precio_socio');
         $actividad->save();
+
+        return redirect()->back()->with('success', 'Precio actualizado correctamente');
+    }
+
+    public function actualizarPrecioFee($id, Request $request){
+        $tarifa = Fee::findOrFail($id);
+        $tarifa->tarifa = $request->input('tarifa');
+        $tarifa->save();
 
         return redirect()->back()->with('success', 'Precio actualizado correctamente');
     }
