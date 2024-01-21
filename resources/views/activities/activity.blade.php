@@ -18,23 +18,23 @@
                         <table class="table table-dark">
                             <thead>
                                 <tr>
-                                    <th>Hora</th>
+                                    <th>Fecha</th>
                                     <th>Precio Socio</th>
                                     <th>Precio No Socio</th>
                                     <th>Apuntarse</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($horasDisponibles as $hora)
+                                @foreach ($calendars as $calendar)
                                     <tr>
-                                        <td>{{ $hora->fecha }}</td>
+                                        <td>{{ $calendar->fecha }} {{$calendar->hora}}</td>
                                         <td>{{ $precioSocio}}€</td>
                                         <td>{{ $precioNoSocio }}€</td>
                                         <td>
                                             <form action="{{ route('actividad.reservarActividad') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="actividad_id" value="{{ $actividad->id }}">
-                                                <input type="hidden" name="hora" value="{{ $hora }}">
+                                                <input type="hidden" name="hora" value="{{ $calendar->id }}">
                                                 <input type="hidden" name="precioSocio" value="{{ $precioSocio }}">
                                                 <input type="hidden" name="precioNoSocio" value="{{ $precioNoSocio }}">
                                                 <input type="hidden" name="usuario" value="{{ auth()->user()->id }}">
@@ -65,8 +65,8 @@
                                                                 <input type="text" name="apellidos" placeholder="Apellidos" required>
                                                                 <input type="text" name="dni" placeholder="DNI" required>
                                                                 <input type="email" name="email" placeholder="Email" required>
-                                                                <input type="hidden" name="instalacion_id" value="{{ $actividad->id }}">
-                                                                <input type="hidden" name="hora" value="{{ $hora }}">
+                                                                <input type="hidden" name="actividad_id" value="{{ $actividad->id }}">
+                                                                <input type="hidden" name="hora" value="{{ $calendar->id }}">
                                                                 <button type="submit" class="btn btn-danger">Reservar</button>
                                                             </form>
                                                         </div>
