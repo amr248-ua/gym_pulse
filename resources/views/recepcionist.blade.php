@@ -7,9 +7,11 @@
             <h2 class="text-dark mb-4">Añadir saldo a un usuario</h2>
         </div>
         <div class="col-12 d-flex justify-content-end">
-            <button class="btn btn-secondary" style="background-color: #DE0000; color: white; padding: 15px 30px; font-size: 1em; border: 2px solid white; border-radius: 10px; font-weight: bold; cursor: pointer;">
-                Instalaciones y Actividades
-            </button>
+            <a href="{{ route('recepcionIns.view') }}">
+                <button class="btn btn-secondary" style="background-color: #DE0000; color: white; padding: 15px 30px; font-size: 1.25em; border: 2px solid white; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                    Instalaciones y Actividades
+                </button>
+            </a>
         </div>
     </div>
 </div>

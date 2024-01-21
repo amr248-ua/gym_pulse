@@ -38,6 +38,9 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::put('/actualizar-saldo/{id}', [UserController::class, 'actualizarSaldo'])
     ->name('actualizarSaldo');
+Route::get('recepcionIns', [UserController::class, 'recepcionistaInsView'])->name('recepcionIns.view');
+Route::get('recepcionIns', [UserController::class, 'recepcionistaInsViewInstalacion'])->name('recepcionIns.view');
 Route::get('recepcion', [UserController::class, 'recepcionistaView'])->name('recepcion.view');
 Route::get('actividades', [ActividadesController::class, 'showActividades'])->name('actividades.showActividades');
 Route::get('/buscar-usuario', [UserController::class, 'buscarUsuario'])->name('buscarUsuario');
+Route::put('actualizar-precio/{id}', [UserController::class, 'actualizarPrecio'])->name('actualizar.precio');

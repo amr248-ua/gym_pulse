@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Installation;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -20,9 +21,25 @@ class UserController extends Controller
     public function recepcionistaView(){
         return view('recepcionist');
     }
+
+    public function recepcionistaInsView(){
+        return view('receptionistIns');
+    }
+
+    public function recepcionistaInsViewInstalacion(){
+        $instalaciones = Installation::all();
+        return view('receptionistIns', ['instalaciones' => $instalaciones]);
+    }
+
+    public function actualizarPrecio($id, Request $request){
+        $instalacion = Installation::findOrFail($id);
+        $instalacion->precio = $request->input('precio_socio');
+        $instalacion->save();
+
+        return redirect()->back()->with('success', 'Precio actualizado correctamente');
+    }
     
     public function actualizarDatos(Request $request, $id) {
-        // Validar los datos del formulario
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
@@ -34,7 +51,6 @@ class UserController extends Controller
             'codigo_postal' => 'required|string|max:5',
         ]);
 
-        // Actualizar el usuario
         $usuario = Auth::user();
         $usuario->nombre = $request->input('nombre');
         $usuario->apellidos = $request->input('apellidos');
