@@ -5,6 +5,7 @@ use App\Http\Controllers\ActividadesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\EstadisticasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,10 @@ use App\Http\Controllers\AboutController;
 |
 */
 
+// routes/web.php
+
+
+Route::get('/estadisticas', [EstadisticasController::class, 'index'])->name('estadisticas.index');
 
 
 Route::get('/acerca-de', [AboutController::class, 'index'])->name('about');

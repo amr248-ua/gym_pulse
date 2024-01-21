@@ -9,6 +9,8 @@ class Installation extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nombre', 'bloqueado'];
+
     public function usuarios(){
         return $this->belongsToMany(User::class);
     }

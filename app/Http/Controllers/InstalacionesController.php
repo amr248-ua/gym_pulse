@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Log;
 
 class InstalacionesController extends Controller
 {
+
+
+
     public function showInstalaciones()
     {
         $instalaciones = Installation::paginate(4);
@@ -105,7 +108,7 @@ class InstalacionesController extends Controller
 
             if($nouserID == ""){
                 $usuario = new NoUser();
-                
+
                 $usuario->nombre = $request->input('nombre');
                 $usuario->apellidos = $request->input('apellidos');
                 $usuario->dni = $request->input('dni');
@@ -115,7 +118,7 @@ class InstalacionesController extends Controller
                 Log::info('NoUser creado con id: ' . $nouserID);
             }
 
-            
+
 
             // Obtener el id del calendario
             $calendario = new Calendar();
