@@ -34,21 +34,28 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                     @if(request()->is('/'))
-                            @auth
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('actividades.showActividades') }}">{{ __('Actividades') }}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Material') }}</a>
-                                </li>
-                                
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('instalaciones.showInstalaciones') }}">{{ __('Reserva') }}</a>
-                                </li>
-                            @endauth
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Gimnasio') }}</a>
-                                </li>
+                            @if(Auth::check() && Auth::user()->webmaster)
+                                    <!-- Contenido adicional para usuarios con rol de administrador -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('webmaster.solicitudes') }}">{{ __('Solicitudes') }}</a>
+                                    </li>
+                            @else
+                                @auth
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('actividades.showActividades') }}">{{ __('Actividades') }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Material') }}</a>
+                                    </li>
+                                    
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('instalaciones.showInstalaciones') }}">{{ __('Reserva') }}</a>
+                                    </li>
+                                @endauth
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Gimnasio') }}</a>
+                                    </li>
+                                @endif
                             @endif
                     </ul>
 

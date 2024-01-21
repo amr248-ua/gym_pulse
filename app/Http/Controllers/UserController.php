@@ -15,4 +15,8 @@ class UserController extends Controller
     public function actualizarDatos($id){
         return view('modPerfil');
     }
+
+    public function showSolicitudes($id){
+        return view('webmaster.solicitudes');
+    }
 }

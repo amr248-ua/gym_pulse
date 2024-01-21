@@ -33,4 +33,7 @@ Route::get('/usuarios/{id}/editar', [UserController::class, 'actualizarDatos'])-
 
 Route::get('actividades', [ActividadesController::class, 'showActividades'])->name('actividades.showActividades');
 
+//Rutas de webmaster
+
+Route::get('solicitudes', [UserController::class, 'showSolicitudes'])->name('webmaster.solicitudes');
 
