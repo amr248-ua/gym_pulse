@@ -16,54 +16,92 @@
     </div>
 </div>
 
-<div class="container-fluid mt-5 d-flex justify-content-between" style="width: 100%;">
-    <div class="d-flex flex-column align-items-center" style="width: 48%; background-color: #000; color: #fff; padding: 20px; border-radius: 15px; position: relative;">
-        <h3 class="text-center mb-3">Instalaciones</h3>
-        <table class="table table-bordered text-center" style="width: 100%;">
+<div class="container-fluid mt-5">
+    <div class="d-flex justify-content-between">
+        <!-- Contenedor de Instalaciones -->
+        <div class="d-flex flex-column align-items-center" style="width: 48%; background-color: #000; color: #fff; padding: 20px; border-radius: 15px; position: relative;">
+            <h3 class="text-center mb-3">Instalaciones</h3>
+            <table class="table table-bordered text-center" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Instalación</th>
+                        <th>Plazas</th>
+                        <th>Precio socio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($instalaciones as $instalacion)
+                        <tr>
+                            <td>{{ $instalacion->nombre }}</td>
+                            <td>{{ $instalacion->plazas }}</td>
+                            <td>
+                                <form action="{{ route('actualizar.precioIns', ['id' => $instalacion->id]) }}" method="post">
+                                    @csrf
+                                    @method('put')
+                                    <input type="text" name="precio_socio" value="{{ $instalacion->precio }}" class="text-center" />
+                                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Contenedor de Actividades -->
+        <div class="d-flex flex-column align-items-center" style="width: 48%; background-color: #000; color: #fff; padding: 20px; border-radius: 15px; position: relative;">
+            <h3 class="text-center mb-3">Actividades</h3>
+            <table class="table table-bordered" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Actividad</th>
+                        <th>Plazas</th>
+                        <th>Precio socio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($actividades as $actividad)
+                        <tr>
+                            <td>{{ $actividad->nombre }}</td>
+                            <td>{{ $actividad->plazas }}</td>
+                            <td>
+                                <form action="{{ route('actualizar.precioAct', ['id' => $actividad->id]) }}" method="post">
+                                    @csrf
+                                    @method('put')
+                                    <input type="text" name="precio_socio" value="{{ $actividad->precio }}" class="text-center" />
+                                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column align-items-center mt-5" style="width: 48%; background-color: #000; color: #fff; padding: 20px; border-radius: 15px; position: relative;">
+        <h3 class="text-center mb-3">Tarifas</h3>
+        <table class="table table-bordered text-center" style="width: 60%;">
             <thead>
                 <tr>
-                    <th>Instalación</th>
-                    <th>Plazas</th>
-                    <th>Precio socio</th>
+                    <th>Tipo</th>
+                    <th>Tarifa</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($instalaciones as $instalacion)
+                @foreach($tarifas as $tarifa)
                     <tr>
-                        <td>{{ $instalacion->nombre }}</td>
-                        <td>{{ $instalacion->plazas }}</td>
+                        <td>{{ $tarifa->tipo_tarifa }}</td>
                         <td>
-                            <form action="{{ route('actualizar.precio', ['id' => $instalacion->id]) }}" method="post">
+                            <form action="{{ route('actualizar.precioFee', ['id' => $tarifa->id]) }}" method="post">
                                 @csrf
                                 @method('put')
-                                <input type="text" name="precio_socio" value="{{ $instalacion->precio }}" class="text-center" />
+                                <input type="text" name="tarifa" value="{{ $tarifa->tarifa }}" class="text-center" />
                                 <button type="submit" class="btn btn-primary">Actualizar</button>
                             </form>
                         </td>
                     </tr>
                 @endforeach
-            </tbody>
-        </table>
-    </div>
-
-
-
-    <div class="d-flex flex-column align-items-center" style="width: 48%; background-color: #000; color: #fff; padding: 20px; border-radius: 15px; position: relative;">
-        <h3 class="text-center mb-3">Actividades</h3>
-        <table class="table table-bordered" style="width: 100%;">
-            <thead>
-                <tr>
-                    <th>Actividad</th>
-                    <th>Plazas</th>
-                    <th>Precio socio</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Dato 1</td>
-                    <td>Dato 2</td>
-                    <td>Dato 4</td>
-                </tr>
             </tbody>
         </table>
     </div>

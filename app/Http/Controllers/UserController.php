@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Installation;
+use App\Models\Activity;
+use App\Models\Fee;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -28,17 +30,36 @@ class UserController extends Controller
 
     public function recepcionistaInsViewInstalacion(){
         $instalaciones = Installation::all();
-        return view('receptionistIns', ['instalaciones' => $instalaciones]);
+        $actividades = Activity::all();
+        $tarifas = Fee::all();
+        return view('receptionistIns', ['instalaciones' => $instalaciones, 'actividades' => $actividades, 'tarifas' => $tarifas]);
     }
+    
 
-    public function actualizarPrecio($id, Request $request){
+    public function actualizarPrecioIns($id, Request $request){
         $instalacion = Installation::findOrFail($id);
         $instalacion->precio = $request->input('precio_socio');
         $instalacion->save();
 
         return redirect()->back()->with('success', 'Precio actualizado correctamente');
     }
-    
+
+    public function actualizarPrecioAct($id, Request $request){
+        $actividad = Activity::findOrFail($id);
+        $actividad->precio = $request->input('precio_socio');
+        $actividad->save();
+
+        return redirect()->back()->with('success', 'Precio actualizado correctamente');
+    }
+
+    public function actualizarPrecioFee($id, Request $request){
+        $tarifa = Fee::findOrFail($id);
+        $tarifa->tarifa = $request->input('tarifa');
+        $tarifa->save();
+
+        return redirect()->back()->with('success', 'Precio actualizado correctamente');
+    }
+
     public function actualizarDatos(Request $request, $id) {
         $request->validate([
             'nombre' => 'required|string|max:255',

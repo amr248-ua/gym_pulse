@@ -53,5 +53,8 @@ Route::get('recepcionIns', [UserController::class, 'recepcionistaInsView'])->nam
 Route::get('recepcionIns', [UserController::class, 'recepcionistaInsViewInstalacion'])->name('recepcionIns.view');
 Route::get('recepcion', [UserController::class, 'recepcionistaView'])->name('recepcion.view');
 
-Route::put('actualizar-precio/{id}', [UserController::class, 'actualizarPrecio'])->name('actualizar.precio');
+Route::put('actualizar-precio-Instalacion/{id}', [UserController::class, 'actualizarPrecioIns'])->name('actualizar.precioIns');
+Route::put('actualizar-precio-Actividad/{id}', [UserController::class, 'actualizarPrecioAct'])->name('actualizar.precioAct');
+Route::put('actualizar-precio-tarifa/{id}', [UserController::class, 'actualizarPrecioFee'])->name('actualizar.precioFee');
+
 Route::get('/buscar-usuario', [UserController::class, 'buscarUsuario'])->name('buscarUsuario');
