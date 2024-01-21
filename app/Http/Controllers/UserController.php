@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Installation;
+use App\Models\Activity;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -28,17 +29,27 @@ class UserController extends Controller
 
     public function recepcionistaInsViewInstalacion(){
         $instalaciones = Installation::all();
-        return view('receptionistIns', ['instalaciones' => $instalaciones]);
+        $actividades = Activity::all();
+        return view('receptionistIns', ['instalaciones' => $instalaciones, 'actividades' => $actividades]);
     }
+    
 
-    public function actualizarPrecio($id, Request $request){
+    public function actualizarPrecioIns($id, Request $request){
         $instalacion = Installation::findOrFail($id);
         $instalacion->precio = $request->input('precio_socio');
         $instalacion->save();
 
         return redirect()->back()->with('success', 'Precio actualizado correctamente');
     }
-    
+
+    public function actualizarPrecioAct($id, Request $request){
+        $actividad = Activity::findOrFail($id);
+        $actividad->precio = $request->input('precio_socio');
+        $actividad->save();
+
+        return redirect()->back()->with('success', 'Precio actualizado correctamente');
+    }
+
     public function actualizarDatos(Request $request, $id) {
         $request->validate([
             'nombre' => 'required|string|max:255',

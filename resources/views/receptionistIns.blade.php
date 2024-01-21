@@ -33,7 +33,7 @@
                         <td>{{ $instalacion->nombre }}</td>
                         <td>{{ $instalacion->plazas }}</td>
                         <td>
-                            <form action="{{ route('actualizar.precio', ['id' => $instalacion->id]) }}" method="post">
+                            <form action="{{ route('actualizar.precioIns', ['id' => $instalacion->id]) }}" method="post">
                                 @csrf
                                 @method('put')
                                 <input type="text" name="precio_socio" value="{{ $instalacion->precio }}" class="text-center" />
@@ -59,11 +59,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Dato 1</td>
-                    <td>Dato 2</td>
-                    <td>Dato 4</td>
-                </tr>
+                @foreach($actividades as $actividad)
+                    <tr>
+                        <td>{{ $actividad->nombre }}</td>
+                        <td>{{ $actividad->plazas }}</td>
+                        <td>
+                            <form action="{{ route('actualizar.precioAct', ['id' => $actividad->id]) }}" method="post">
+                                @csrf
+                                @method('put')
+                                <input type="text" name="precio_socio" value="{{ $actividad->precio }}" class="text-center" />
+                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
