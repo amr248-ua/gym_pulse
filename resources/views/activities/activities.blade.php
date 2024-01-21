@@ -15,8 +15,7 @@
                             <h5 class="card-title mb-3">{{ $actividad->nombre }}</h5>
                             <p class="card-text">{{ $actividad->descripcion }}</p>
                             <div class="text-center">
-                                {{-- <a href="{{ route('horario', $actividad->id) }}" class="btn btn-primary">Horario</a> --}}
-                                {{-- <a href="{{ route('reservar', $actividad->id) }}" class="btn btn-success">Apuntarse</a> --}}
+                                <a href="{{ route('actividad', $actividad->id) }}" class="btn btn-success">Apuntarse</a>
                             </div>
                         </div>
                     </div>
