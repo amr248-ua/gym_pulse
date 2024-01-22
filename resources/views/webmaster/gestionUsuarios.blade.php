@@ -15,40 +15,79 @@
 
         <!-- Botón Añadir Recepcionista -->
         <div class="col-md-4 text-end">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crearRecepcionistaModal">Añadir Recepcionista</button>
+            <button type="button" class="btn bg-dark text-white" data-toggle="modal" data-target="#crearRecepcionistaModal">Añadir Recepcionista</button>
         </div>
 
         <!-- Botón Añadir Usuario -->
         <div class="col-md-4 text-end">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearUsuarioModal">Añadir Usuario</button>
+            <button type="button" class="btn bg-dark text-white" data-toggle="modal" data-target="#crearUsuarioModal">Añadir Usuario</button>
         </div>
     </div>
+    <!-- Tabla de resultados de búsqueda -->
+    @if($usuarios !== null && count($usuarios) > 0)
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <h4>Resultados de la búsqueda</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-4 text-center">Nombre</th>
+                            <th class="col-4 text-center">Fecha de Creación</th>
+                            <th class="col-4 text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($usuarios as $usuario)
+                            <tr>
+                                <td class="col-4 text-center">{{ $usuario->nombre }}</td>
+                                <td class="col-4 text-center">{{ $usuario->created_at->format('Y-m-d H:i:s') }}</td>
+                                <td class="col-4 text-center">
+                                    @if($usuario->socio)
+                                        <form action="{{ route('bloquear_usuario', ['id' => $usuario->id]) }}" method="post" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm" style="background-color: transparent; color: red; border: none; font-size: 120%">Bloquear</button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('desbloquear_usuario', ['id' => $usuario->id]) }}" method="post" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm" style="background-color: transparent; color: green; border: none; font-size: 120%">Desbloquear</button>
+                                        </form>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endif
+
 
     <div class="row">
         <div class="col-md-12">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Fecha de Creación</th>
-                        <th>Acciones</th>
+                        <th class="col-4 text-center">Nombre</th>
+                        <th class="col-4 text-center">Fecha de Creación</th>
+                        <th class="col-4 text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($usuariosWebmaster as $usuario)
                         <tr>
-                            <td>{{ $usuario->nombre }}</td>
-                            <td>{{ $usuario->created_at->format('Y-m-d H:i:s') }}</td>
-                            <td>
+                            <td class="col-4 text-center">{{ $usuario->nombre }}</td>
+                            <td class="col-4 text-center">{{ $usuario->created_at->format('Y-m-d H:i:s') }}</td>
+                            <td class="col-4 text-center">
                             @if($usuario->socio)
                                 <form action="{{ route('bloquear_usuario', ['id' => $usuario->id]) }}" method="post" class="d-inline">
                                     @csrf
-                                    <button type="submit" class="btn btn-danger btn-sm">Bloquear</button>
+                                    <button type="submit" class="btn btn-sm" style="background-color: transparent; color: red; border: none; font-size: 120%">Bloquear</button>
                                 </form>
                             @else
                                 <form action="{{ route('desbloquear_usuario', ['id' => $usuario->id]) }}" method="post" class="d-inline">
                                     @csrf
-                                    <button type="submit" class="btn btn-success btn-sm">Desbloquear</button>
+                                    <button type="submit" class="btn btn-sm" style="background-color: transparent; color: green; border: none; font-size: 120%">Desbloquear</button>
                                 </form>
                             @endif
                             </td>
@@ -113,7 +152,7 @@
                 </button>
             </div>
             <div class="card bg-dark text-white">
-                <form method="POST" action="{{ route('register') }}" class="p-4">
+                <form method="POST" action="{{ route('crear_socio') }}" class="p-4">
                     @csrf
 
                     <div class="row mb-3">

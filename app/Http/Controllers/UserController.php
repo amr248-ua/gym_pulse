@@ -41,10 +41,10 @@ class UserController extends Controller
 
     public function showUsuariosWebmaster(){
         $usuariosWebmaster = User::query();
-
+        $usuarios = null;
         $usuariosWebmaster = $usuariosWebmaster->paginate(10);
     
-        return view('webmaster.gestionUsuarios', compact('usuariosWebmaster'));
+        return view('webmaster.gestionUsuarios', compact('usuariosWebmaster', 'usuarios'));
     }
 
     public function recepcionistaView(){
@@ -129,17 +129,29 @@ class UserController extends Controller
 
     public function buscarUsuarioWebmaster(Request $request)
     {
-        // Obtener parámetro de búsqueda desde la solicitud
         $nombreUsuario = $request->input('nombre_usuario');
-
-        if ($request->has('nombre_usuario')) {
-            $nombreUsuario->where('nombre', 'like', '%' . $request->input('nombre_usuario') . '%')
-                ->orWhere('apellidos', 'like', '%' . $request->input('nombre_usuario') . '%')
-                ->orWhere('usuario', 'like', '%' . $request->input('nombre_usuario') . '%');
+    
+        // Obtener todos los usuarios
+        $usuarios = User::query();
+    
+        // Aplicar la búsqueda si se proporciona un nombre de usuario
+        if ($nombreUsuario) {
+            $usuarios->where(function ($query) use ($nombreUsuario) {
+                $query->where('nombre', 'like', '%' . $nombreUsuario . '%')
+                    ->orWhere('apellidos', 'like', '%' . $nombreUsuario . '%')
+                    ->orWhere('usuario', 'like', '%' . $nombreUsuario . '%');
+            });
         }
-
-        return view('gestionUsuarios', compact('usuarios'));
+    
+        // Paginar los resultados
+        $usuarios = $usuarios->paginate(10);
+    
+        // Obtener todos los usuarios webmaster (opcional)
+        $usuariosWebmaster = $this->showUsuariosWebmaster()['usuariosWebmaster'];
+    
+        return view('webmaster.gestionUsuarios', compact('usuarios', 'usuariosWebmaster'));
     }
+    
 
     public function actualizarSaldo(Request $request, $id){
         $user = User::findOrFail($id);
@@ -207,6 +219,42 @@ class UserController extends Controller
             'codigo_postal' => "00000",
             'usuario' => $request['usuario'], 
             'recepcionista'=>true,
+            'socio'=>true,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function crearSocio(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'birthday' => 'required|date',
+            'last_name' => 'required|string|max:255',
+            'phone' => 'required|string|max:10',
+            'email_confirmation' => 'required|string|email|max:255|same:email',
+            'password_confirmation' => 'required|string|min:8|same:password',
+            'dni' => 'required|string|max:9',
+            'address' => 'required|string|max:255',
+            'postal_code' => 'required|string|max:5',
+            'username' => 'required|string|max:255',                                 
+        ]);
+
+        // Crea el usuario con el atributo 'recepcionista' establecido en true
+        $user = User::create([
+            'nombre' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'fecha_nacimiento' => $request['birthday'],
+            'apellidos' => $request['last_name'],
+            'telefono' => $request['phone'],
+            'dni' => $request['dni'],
+            'direccion' => $request['address'],
+            'codigo_postal' => $request['postal_code'],
+            'usuario' => $request['username'],            
+            'socio'=>true,
         ]);
 
         return redirect()->back();

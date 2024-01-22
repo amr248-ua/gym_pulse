@@ -73,4 +73,5 @@ Route::post('/bloquear-usuario/{id}', [UserController::class, 'bloquearUsuario']
 Route::post('/desbloquear-usuario/{id}', [UserController::class, 'desbloquearUsuario'])->name('desbloquear_usuario');
 Route::get('/crear-recepcionista', [UserController::class, 'crearRecepcionista'])->name('crear_recepcionista');
 Route::post('/crear-recepcionista', [UserController::class, 'crearRecepcionista'])->name('crear_recepcionista');
-Route::get('/crear-usuario', [UserController::class, 'crearUsuario'])->name('crear_usuario');
+Route::get('/crear-socio', [UserController::class, 'crearSocio'])->name('crear_socio');
+Route::post('/crear-socio', [UserController::class, 'crearSocio'])->name('crear_socio');
