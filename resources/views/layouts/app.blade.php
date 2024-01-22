@@ -61,6 +61,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('webmaster.solicitudes') }}">{{ __('Solicitudes') }}</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('webmaster.gestionUsuarios') }}">{{ __('Usuarios') }}</a>
+                                    </li>
                                 @endif
 
                             @endauth

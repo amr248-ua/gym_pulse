@@ -1,40 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid mt-5">
-        Solicitudes de registro
+    <div class="container-fluid">
+        <h1 style="padding-left:5%">Solicitudes de registro</h1>
         @if ($usuariosNoAprobados->count() > 0)
         <table class="table">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Fecha de Creación</th>
-                    <th>Acciones</th>
+                    <th class="col-4 text-center">Nombre</th>
+                    <th class="col-4 text-center">Fecha de Creación</th>
+                    <th class="col-4 text-center">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($usuariosNoAprobados as $usuario)
                     <tr>
-                        <td>
+                        <td class="col-4 text-center">
                             <span @if($usuario->bloqueado) style="text-decoration: line-through; color: red;" @endif>
                                 {{ $usuario->nombre }}
                             </span>
                         </td>
-                        <td>{{ $usuario->created_at->format('Y-m-d H:i:s') }}</td>
-                        <td class="text-right">
+                        <td class="col-4 text-center">{{ $usuario->created_at->format('Y-m-d H:i:s') }}</td>
+                        <td class="col-4 text-center">
                             <!-- Botón de detalles -->
-                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal{{ $usuario->id }}">Ver Detalles</button>
+                            <button type="button" style="background-color: transparent; color: grey; border: none; font-size: 120%" data-toggle="modal" data-target="#exampleModal{{ $usuario->id }}">Ver Detalles</button>
                             
                             <!-- Botón de aceptar -->
                             <form action="{{ route('aprobar_usuario', ['id' => $usuario->id]) }}" method="post" class="d-inline">
                                 @csrf
-                                <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
+                                <button type="submit" style="background-color: transparent; color: green; border: none; font-size: 120%">Aceptar</button>
                             </form>
                             
                             <!-- Botón de denegar -->
                             <form action="{{ route('denegar_usuario', ['id' => $usuario->id]) }}" method="post" class="d-inline">
                                 @csrf
-                                <button type="submit" class="btn btn-danger btn-sm">Denegar</button>
+                                <button type="submit" style="background-color: transparent; color: red; border: none; font-size: 120%">Denegar</button>
                             </form>
 
                             <!-- Modal Detalles -->
