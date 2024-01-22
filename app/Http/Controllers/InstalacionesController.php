@@ -26,6 +26,54 @@ class InstalacionesController extends Controller
         return view('installations.installations', compact('instalaciones'));
     }
 
+    public function listadoInstalaciones()
+    {
+        $instalaciones = Installation::paginate(4);
+        return view('installations.instalacionesWebmaster', compact('instalaciones'));
+    }
+
+    public function bloquearInstalacion($id)
+    {
+        $instalacion = Installation::findOrFail($id);
+        $instalacion->bloqueado = !$instalacion->bloqueado;
+        $instalacion->save();
+
+        return redirect()->route('instalacionesWebmaster.showInstalacionesWebmaster');
+    }
+
+    public function nuevaInstalacion(Request $request)
+    {
+        $request->validate([
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nombre' => 'required|string|max:255',
+            'plazas' => 'required|integer|min:1',
+            'horario' => 'required|string|max:255',
+            'maxTiempo' => 'required|integer|min:1',
+            'precio' => 'required|numeric|min:0',
+        ]);
+
+
+        // Obtener el archivo de la solicitud
+        $imagen = $request->file('imagen');
+
+        // Generar un nombre único para la imagen
+        $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
+
+        // Mover la imagen al directorio
+        $imagen->move(public_path('img/instalaciones'), $nombreImagen);
+
+        $instalacion = new Installation();
+        $instalacion->nombre = $request->input('nombre');
+        $instalacion->plazas = $request->input('plazas');
+        $instalacion->horario = $request->input('horario');
+        $instalacion->maxTiempo = $request->input('maxTiempo');
+        $instalacion->precio = $request->input('precio');
+        $instalacion->imagen = 'img/instalaciones/' . $nombreImagen;
+        $instalacion->save();
+
+        return redirect()->back()->with('success', 'Imagen subida exitosamente.');
+    }
+
     public function showInstalacion($id)
     {
                 // Obtener la instalación

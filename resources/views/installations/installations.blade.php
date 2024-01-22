@@ -14,9 +14,13 @@
                         <div class="card-body">
                             <h5 class="card-title mb-3">{{ $instalacion->nombre }}</h5>
                             <p class="card-text">{{ $instalacion->descripcion }}</p>
+                            @if($instalacion->bloqueado)
+                                <p class="card-text">Instalación bloqueada</p>
+                            @else
                             <div class="text-center">
                                 <a href="{{ route('instalacion', $instalacion->id) }}" class="btn btn-danger">Reservar</a>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
