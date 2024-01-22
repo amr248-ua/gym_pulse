@@ -51,6 +51,16 @@
                                         <a class="nav-link" href="{{ route('recepcion.view') }}">{{ __('Recepcionista') }}</a>
                                     </li>
                                 @endif
+                                @if(Auth::user()->webmaster)
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('estadisticas.index') }}">{{ __('Estadisticas') }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('instalacionesWebmaster.showInstalacionesWebmaster') }}">{{ __('Instalaciones') }}</a>
+                                    </li>
+
+                                @endif
+
                             @endauth
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Gimnasio') }}</a>

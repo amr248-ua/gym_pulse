@@ -5,6 +5,7 @@ use App\Http\Controllers\ActividadesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\EstadisticasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,10 @@ use App\Http\Controllers\AboutController;
 |
 */
 
+// routes/web.php
+
+
+Route::get('/estadisticas', [EstadisticasController::class, 'index'])->name('estadisticas.index');
 
 
 Route::get('/acerca-de', [AboutController::class, 'index'])->name('about');
@@ -36,6 +41,9 @@ Route::get('instalaciones', [InstalacionesController::class, 'showInstalaciones'
 Route::get('instalaciones/{id}', [InstalacionesController::class, 'showInstalacion'])->name('instalacion');
 Route::post('reservarInstalacionRecepcionista', [InstalacionesController::class, 'instalacionRecepcionista'])->name('instalacion.instalacionRecepcionista');
 Route::post('reservarInstalacion', [InstalacionesController::class, 'reservarInstalacion'])->name('instalacion.reservarInstalacion');
+Route::get('instalacionesWebmaster', [InstalacionesController::class, 'listadoInstalaciones'])->name('instalacionesWebmaster.showInstalacionesWebmaster');
+Route::post('bloquear-instalacion/{id}', [InstalacionesController::class, 'bloquearInstalacion'])->name('bloquear_instalacion');
+Route::post('nueva-instalacion', [InstalacionesController::class, 'nuevaInstalacion'])->name('nueva_instalacion');
 
 Route::get('perfil/{id}', [UserController::class, 'showDatos'])->name('perfil');
 Route::get('/usuarios/{id}/editar', [UserController::class, 'actualizarDatosView'])->name('perfil.actualizarDatosView');
@@ -44,7 +52,13 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::put('/actualizar-saldo/{id}', [UserController::class, 'actualizarSaldo'])
     ->name('actualizarSaldo');
+Route::get('recepcionIns', [UserController::class, 'recepcionistaInsView'])->name('recepcionIns.view');
+Route::get('recepcionIns', [UserController::class, 'recepcionistaInsViewInstalacion'])->name('recepcionIns.view');
 Route::get('recepcion', [UserController::class, 'recepcionistaView'])->name('recepcion.view');
+
+Route::put('actualizar-precio-Instalacion/{id}', [UserController::class, 'actualizarPrecioIns'])->name('actualizar.precioIns');
+Route::put('actualizar-precio-Actividad/{id}', [UserController::class, 'actualizarPrecioAct'])->name('actualizar.precioAct');
+Route::put('actualizar-precio-tarifa/{id}', [UserController::class, 'actualizarPrecioFee'])->name('actualizar.precioFee');
 
 Route::get('/buscar-usuario', [UserController::class, 'buscarUsuario'])->name('buscarUsuario');
 

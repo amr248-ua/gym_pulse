@@ -28,8 +28,26 @@ class ActividadesController extends Controller
                 // Obtener la instalación
         $actividad = Activity::findOrFail($id);
 
-        $horasDisponibles = Calendar::where('activity_id', $id)->get();
+        $calendars = Calendar::where('activity_id', $id)->get();
 
+        // Obtener los activity_ids de la tabla activity_users
+        $activityUserIds = Activity_User::where('activity_id', $id)->pluck('calendar_id');
+        $activityNoUserIds = Activity_NoUser::where('activity_id', $id)->pluck('calendar_id');
+        $reservas = $activityUserIds->merge($activityNoUserIds);
+        Log::info('Reservas: ' . $reservas);
+
+        $minCoincidencias = $actividad->plazas;
+
+        $filteredCalendars = $reservas->countBy(function ($calendarId) {
+            return $calendarId;
+        })->filter(function ($count) use ($minCoincidencias) {
+            return $count >= $minCoincidencias;
+        })->keys();
+
+        Log::info('Calendarios filtrados: ' . $filteredCalendars);
+
+        $calendarsFiltrados = Calendar::whereIn('id', $filteredCalendars)->get();
+        $calendars = $calendars->diff($calendarsFiltrados);
         // Obtener tarifas como valores escalares
         $tarifaSocio = FEE::where('tipo_tarifa', 'Socio')->value('tarifa');
         $tarifaNoSocio = FEE::where('tipo_tarifa', 'No Socio')->value('tarifa');
@@ -37,21 +55,7 @@ class ActividadesController extends Controller
         $precioSocio = round($actividad->precio - $actividad->precio * $tarifaSocio, 2);
         $precioNoSocio = round($actividad->precio - $actividad->precio * $tarifaNoSocio, 2);
 
-        return view('activities.activity', compact('actividad', 'horasDisponibles', 'precioSocio', 'precioNoSocio'));
-    }
-
-    private function generarHorasTotales()
-    {
-        $horasTotales = [];
-        $horaInicio = Carbon::createFromTime(9, 0, 0);
-        $horaFin = Carbon::createFromTime(22, 0, 0);
-
-        while ($horaInicio <= $horaFin) {
-            $horasTotales[] = $horaInicio->format('H:i');
-            $horaInicio->addHour();
-        }
-
-        return collect($horasTotales);
+        return view('activities.activity', compact('actividad', 'calendars', 'precioSocio', 'precioNoSocio'));
     }
 
     public function actividadRecepcionista(Request $request){
@@ -79,17 +83,13 @@ class ActividadesController extends Controller
             
 
             // Obtener el id del calendario
-            $calendario = new Calendar();
-            $calendario->fecha = Carbon::today();
-            $calendario->hora = $hora;
-            $calendario->save();
+            $calendario = Calendar::findOrFail($hora);
 
             // Crear la reserva
             $activityUser = new activity_NoUser();
             $activityUser->activity_id = $actividadId;
             $activityUser->calendar_id = $calendario->id;
             $activityUser->no_user_id = $nouserID;
-            $activityUser->duracion = 60;
             $activityUser->save();
 
             DB::commit();
@@ -100,7 +100,7 @@ class ActividadesController extends Controller
             return redirect()->route('actividad', $actividadId)->with('error', $e->getMessage());
         }
 
-        return redirect()->route('actividades.showactividades');
+        return redirect()->route('actividades.showActividades');
 
     }
 
@@ -126,16 +126,13 @@ class ActividadesController extends Controller
         $usuario->save();
 
         // Obtener el id del calendario
-        $calendario = new Calendar();
-        $calendario->fecha = Carbon::today();
-        $calendario->hora = $hora;
-        $calendario->save();
+        $calendario = Calendar::findOrFail($hora);
 
         $transaccion = new Transaction();
         $transaccion->user_id = $usuario->id;
         $transaccion->importe = $usuario->socio ? $precioSocio : $precioNoSocio;
         $transaccion->fecha = Carbon::today();
-        $transaccion->concepto = "Reserva de instalación con el id: " . $actividadId . " a las " . $hora . " por el usuario: " . $usuario->usuario;
+        $transaccion->concepto = "Reserva de la actividad con el id: " . $actividadId . " a las " . $calendario->hora . "del" . $calendario->fecha . " por el usuario: " . $usuario->usuario;
         $transaccion->save();
 
         // Crear la reserva
@@ -143,7 +140,6 @@ class ActividadesController extends Controller
         $activityUser->activity_id = $actividadId;
         $activityUser->calendar_id = $calendario->id;
         $activityUser->user_id = $usuario->id;
-        $activityUser->duracion = 60;
         $activityUser->save();
 
         DB::commit();
@@ -155,7 +151,7 @@ class ActividadesController extends Controller
     }
 
     // Redirigir a la página de actividades
-    return redirect()->route('actividades.showactividades');
+    return redirect()->route('actividades.showActividades');
     }
 }
 
