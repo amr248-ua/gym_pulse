@@ -55,6 +55,10 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('estadisticas.index') }}">{{ __('Estadisticas') }}</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('instalacionesWebmaster.showInstalacionesWebmaster') }}">{{ __('Instalaciones') }}</a>
+                                    </li>
+
                                 @endif
 
                             @endauth

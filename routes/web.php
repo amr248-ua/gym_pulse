@@ -41,6 +41,9 @@ Route::get('instalaciones', [InstalacionesController::class, 'showInstalaciones'
 Route::get('instalaciones/{id}', [InstalacionesController::class, 'showInstalacion'])->name('instalacion');
 Route::post('reservarInstalacionRecepcionista', [InstalacionesController::class, 'instalacionRecepcionista'])->name('instalacion.instalacionRecepcionista');
 Route::post('reservarInstalacion', [InstalacionesController::class, 'reservarInstalacion'])->name('instalacion.reservarInstalacion');
+Route::get('instalacionesWebmaster', [InstalacionesController::class, 'listadoInstalaciones'])->name('instalacionesWebmaster.showInstalacionesWebmaster');
+Route::post('bloquear-instalacion/{id}', [InstalacionesController::class, 'bloquearInstalacion'])->name('bloquear_instalacion');
+Route::post('nueva-instalacion', [InstalacionesController::class, 'nuevaInstalacion'])->name('nueva_instalacion');
 
 Route::get('perfil/{id}', [UserController::class, 'showDatos'])->name('perfil');
 Route::get('/usuarios/{id}/editar', [UserController::class, 'actualizarDatosView'])->name('perfil.actualizarDatosView');
