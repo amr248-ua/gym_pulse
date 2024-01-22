@@ -58,7 +58,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('instalacionesWebmaster.showInstalacionesWebmaster') }}">{{ __('Instalaciones') }}</a>
                                     </li>
-
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('webmaster.solicitudes') }}">{{ __('Solicitudes') }}</a>
+                                    </li>
                                 @endif
 
                             @endauth

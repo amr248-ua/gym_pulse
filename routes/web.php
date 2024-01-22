@@ -61,3 +61,9 @@ Route::put('actualizar-precio-Actividad/{id}', [UserController::class, 'actualiz
 Route::put('actualizar-precio-tarifa/{id}', [UserController::class, 'actualizarPrecioFee'])->name('actualizar.precioFee');
 
 Route::get('/buscar-usuario', [UserController::class, 'buscarUsuario'])->name('buscarUsuario');
+
+//Rutas de webmaster
+
+Route::get('solicitudes', [UserController::class, 'showSolicitudes'])->name('webmaster.solicitudes');
+Route::post('/aprobar-usuario/{id}', [UserController::class, 'aprobarUsuario'])->name('aprobar_usuario');
+Route::post('/denegar-usuario/{id}', [UserController::class, 'denegarUsuario'])->name('denegar_usuario');

@@ -36,5 +36,8 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+
+        // Aplica el middleware después de que el usuario ha iniciado sesión
+        $this->middleware('webmaster')->only('authenticated');
     }
 }
