@@ -65,3 +65,5 @@ Route::get('/buscar-usuario', [UserController::class, 'buscarUsuario'])->name('b
 //Rutas de webmaster
 
 Route::get('solicitudes', [UserController::class, 'showSolicitudes'])->name('webmaster.solicitudes');
+Route::post('/aprobar-usuario/{id}', [UserController::class, 'aprobarUsuario'])->name('aprobar_usuario');
+Route::post('/denegar-usuario/{id}', [UserController::class, 'denegarUsuario'])->name('denegar_usuario');

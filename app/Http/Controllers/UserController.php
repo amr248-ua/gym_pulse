@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\NoUser;
 use App\Models\Installation;
 use App\Models\Activity;
 use App\Models\Fee;
@@ -20,9 +21,22 @@ class UserController extends Controller
         return view('modPerfil');
     }
 
-    public function showSolicitudes($id){
-        return view('webmaster.solicitudes');
+    public function showSolicitudes(Request $request){
+        $usuariosNoAprobados = User::where('socio', false);
+
+        if ($request->has('nombre_usuario')) {
+            $usuariosNoAprobados->where(function ($query) use ($request) {
+                $query->where('nombre', 'like', '%' . $request->input('nombre_usuario') . '%')
+                    ->orWhere('apellidos', 'like', '%' . $request->input('nombre_usuario') . '%')
+                    ->orWhere('usuario', 'like', '%' . $request->input('nombre_usuario') . '%');
+            });
+        }
+    
+        $usuariosNoAprobados = $usuariosNoAprobados->paginate(10);
+    
+        return view('webmaster.solicitudes', compact('usuariosNoAprobados'));
     }
+
     public function recepcionistaView(){
         return view('recepcionist');
     }
@@ -115,4 +129,19 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Saldo actualizado correctamente.');
     }
+
+    public function aprobarUsuario($id){
+        $usuario = User::findOrFail($id);
+        $usuario->update(['socio' => true]);
+
+        return redirect()->back()->with('success', 'Usuario aprobado exitosamente.');
+    }
+
+    public function denegarUsuario($id){
+        $usuario = User::findOrFail($id);
+        $usuario->delete();
+
+        return redirect()->back()->with('success', 'Usuario denegado y eliminado exitosamente.');
+    }
+
 }
