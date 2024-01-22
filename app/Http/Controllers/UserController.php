@@ -10,6 +10,8 @@ use App\Models\Installation;
 use App\Models\Activity;
 use App\Models\Fee;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -35,6 +37,14 @@ class UserController extends Controller
         $usuariosNoAprobados = $usuariosNoAprobados->paginate(10);
     
         return view('webmaster.solicitudes', compact('usuariosNoAprobados'));
+    }
+
+    public function showUsuariosWebmaster(){
+        $usuariosWebmaster = User::query();
+
+        $usuariosWebmaster = $usuariosWebmaster->paginate(10);
+    
+        return view('webmaster.gestionUsuarios', compact('usuariosWebmaster'));
     }
 
     public function recepcionistaView(){
@@ -117,6 +127,20 @@ class UserController extends Controller
         return view('recepcionist', compact('usuarios'));
     }
 
+    public function buscarUsuarioWebmaster(Request $request)
+    {
+        // Obtener parámetro de búsqueda desde la solicitud
+        $nombreUsuario = $request->input('nombre_usuario');
+
+        if ($request->has('nombre_usuario')) {
+            $nombreUsuario->where('nombre', 'like', '%' . $request->input('nombre_usuario') . '%')
+                ->orWhere('apellidos', 'like', '%' . $request->input('nombre_usuario') . '%')
+                ->orWhere('usuario', 'like', '%' . $request->input('nombre_usuario') . '%');
+        }
+
+        return view('gestionUsuarios', compact('usuarios'));
+    }
+
     public function actualizarSaldo(Request $request, $id){
         $user = User::findOrFail($id);
 
@@ -144,4 +168,47 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Usuario denegado y eliminado exitosamente.');
     }
 
+    public function bloquearUsuario($id)
+    {
+        $usuario = User::findOrFail($id);
+        $usuario->socio = false;
+        $usuario->save();
+
+        return redirect()->back();
+    }
+
+    public function desbloquearUsuario($id)
+    {
+        $usuario = User::findOrFail($id);
+        $usuario->socio = true;
+        $usuario->save();
+
+        return redirect()->back();
+    }
+
+    public function crearRecepcionista(Request $request)
+    {
+        $request->validate([
+            'usuario' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        // Crea el usuario con el atributo 'recepcionista' establecido en true
+        $user = User::create([
+            'nombre' => $request['usuario'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'fecha_nacimiento' => "2024-01-01",
+            'apellidos' =>"",
+            'telefono' => 000000000,
+            'dni' => Str::random(9),
+            'direccion' => "GymPulse",
+            'codigo_postal' => "00000",
+            'usuario' => $request['usuario'], 
+            'recepcionista'=>true,
+        ]);
+
+        return redirect()->back();
+    }
 }

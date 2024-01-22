@@ -67,3 +67,10 @@ Route::get('/buscar-usuario', [UserController::class, 'buscarUsuario'])->name('b
 Route::get('solicitudes', [UserController::class, 'showSolicitudes'])->name('webmaster.solicitudes');
 Route::post('/aprobar-usuario/{id}', [UserController::class, 'aprobarUsuario'])->name('aprobar_usuario');
 Route::post('/denegar-usuario/{id}', [UserController::class, 'denegarUsuario'])->name('denegar_usuario');
+Route::get('gestionUsuarios', [UserController::class, 'showUsuariosWebmaster'])->name('webmaster.gestionUsuarios');
+Route::get('/buscar-usuarios', [UserController::class, 'buscarUsuarioWebmaster'])->name('buscar_usuarios');
+Route::post('/bloquear-usuario/{id}', [UserController::class, 'bloquearUsuario'])->name('bloquear_usuario');
+Route::post('/desbloquear-usuario/{id}', [UserController::class, 'desbloquearUsuario'])->name('desbloquear_usuario');
+Route::get('/crear-recepcionista', [UserController::class, 'crearRecepcionista'])->name('crear_recepcionista');
+Route::post('/crear-recepcionista', [UserController::class, 'crearRecepcionista'])->name('crear_recepcionista');
+Route::get('/crear-usuario', [UserController::class, 'crearUsuario'])->name('crear_usuario');
