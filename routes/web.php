@@ -19,7 +19,7 @@ use App\Http\Controllers\TiendaRopaController;
 */
 
 // routes/web.php
-
+Route::get('/tiendaropa/productos/{id}', [TiendaRopaController::class, 'mostrarDetallesProducto'])->name('productos.detalles');
 Route::get('/tiendaropa/catalogo', [TiendaRopaController::class, 'mostrarCatalogo'])->name('tiendaropa.catalogo');
 
 Route::get('/estadisticas', [EstadisticasController::class, 'index'])->name('estadisticas.index');

@@ -6,4 +6,5 @@
 
     <!-- Muestra el HTML sin escapar -->
     {!! $html !!}
+
 @endsection
