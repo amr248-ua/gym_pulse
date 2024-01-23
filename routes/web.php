@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EstadisticasController;
+use App\Http\Controllers\TiendaRopaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +20,7 @@ use App\Http\Controllers\EstadisticasController;
 
 // routes/web.php
 
+Route::get('/tiendaropa/catalogo', [TiendaRopaController::class, 'mostrarCatalogo'])->name('tiendaropa.catalogo');
 
 Route::get('/estadisticas', [EstadisticasController::class, 'index'])->name('estadisticas.index');
 

@@ -40,7 +40,7 @@
                                     <a class="nav-link" href="{{ route('actividades.showActividades') }}">{{ __('Actividades') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Material') }}</a>
+                                    <a class="nav-link" href="{{ route('tiendaropa.catalogo') }}">{{ __('Material') }}</a>
                                 </li>
 
                                 <li class="nav-item">
