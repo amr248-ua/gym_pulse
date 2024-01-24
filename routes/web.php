@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EstadisticasController;
 use App\Http\Controllers\TiendaRopaController;
+use App\Http\Controllers\apiPagoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,3 +79,6 @@ Route::get('/crear-recepcionista', [UserController::class, 'crearRecepcionista']
 Route::post('/crear-recepcionista', [UserController::class, 'crearRecepcionista'])->name('crear_recepcionista');
 Route::get('/crear-socio', [UserController::class, 'crearSocio'])->name('crear_socio');
 Route::post('/crear-socio', [UserController::class, 'crearSocio'])->name('crear_socio');
+
+//Pago
+Route::get('/llamar-api', [apiPagoController::class, 'llamarAPI'])->name('llamar-api');
