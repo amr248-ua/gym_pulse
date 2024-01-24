@@ -53,52 +53,5 @@
             </div>
         </div>
     </div> 
-
-    <script>
-        function llamarAPI() {
-            // URL de la API
-            var apiUrl = 'https://ebisu.firstrow2.com/api/transactions';
-            var jwtToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTB9.AmfT0rGLx2V1YHI9iBdcPCE6-Y41M6FJ5otw5uJrNd0';
-            // Datos para la solicitud POST
-            var postData = {
-                "concept": "string",
-                "amount": 1000000000,
-                "receipt_number": "string",
-                "payment": {
-                    "type": "paypal",
-                    "values": {
-                        "paypal_user": "string",
-                        "credit_card_number": "string",
-                        "credit_card_expiration_month": 12,
-                        "credit_card_expiration_year": 9999,
-                        "credit_card_csv": 999
-                    }
-                }
-            };
-            // Realizar la solicitud POST a la API
-            fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + jwtToken
-                },
-                body: JSON.stringify(postData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Manejar la respuesta de la API
-                console.log(data);
-
-                // Aquí puedes realizar acciones adicionales según la respuesta de la API
-            })
-            .catch(error => {
-                // Manejar errores
-                console.error('Error al llamar a la API', error);
-            });
-        }
-
-        // Llamar a la función al cargar la página
-        window.onload = llamarAPI;
-    </script>
 @endsection
 @endauth
