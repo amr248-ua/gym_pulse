@@ -52,6 +52,7 @@
                             <td class="text-right">
                                 @csrf
                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal{{ $instalacion->id }}">Ver Detalles</button>
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editModal{{ $instalacion->id }}">Modificar</button>
                                 <form action="{{ route('bloquear_instalacion', ['id' => $instalacion->id]) }}" method="post" class="d-inline">
                                     @csrf
                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -60,7 +61,43 @@
                                     </button>
                                 </form>
 
+                                <form action="{{ route('eliminar_instalacion', ['id' => $instalacion->id]) }}" method="post" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <span>Eliminar</span>
+                                    </button>
+                                </form>
+
                                 <!-- Modal Detalles -->
+                                <div class="modal fade" id="editModal{{ $instalacion->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Detalles de la instalación</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                            <form method="post" action="{{route('actualizar_instalacion', ['id' => $instalacion->id])}}" enctype="multipart/form-data">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <!-- Campos del formulario -->
+                                                    <input type="text" name="nombre" placeholder="Nombre" value="{{$instalacion->nombre}}">
+                                                    <input type="number" min=1 name="plazas" placeholder="Plazas" value="{{$instalacion->plazas}}">
+                                                    <input type="hidden" name="horario" value="9:00-22:00">
+                                                    <input type="hidden" name="maxTiempo" value=60>
+                                                    <input type="number" id="precio" name="precio" step="0.01" min="0" placeholder="Ingrese el precio" value="{{$instalacion->precio}}">
+                                                    <input type="file" name="imagen" accept="image/*">
+                                                    <button type="submit" class="btn btn-success">Editar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Editar -->
                                 <div class="modal fade" id="exampleModal{{ $instalacion->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">

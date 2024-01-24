@@ -74,6 +74,42 @@ class InstalacionesController extends Controller
         return redirect()->back()->with('success', 'Imagen subida exitosamente.');
     }
 
+    public function actualizarInstalacion(Request $request, $id)
+    {
+        $request->validate([
+            'imagen' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nombre' => 'required|string|max:255',
+            'plazas' => 'required|integer|min:1',
+            'horario' => 'required|string|max:255',
+            'maxTiempo' => 'required|integer|min:1',
+            'precio' => 'required|numeric|min:0',
+        ]);
+
+        $instalacion = Installation::findOrFail($id);
+
+        // Obtener el archivo de la solicitud
+        $imagen = $request->file('imagen');
+
+        if ($imagen) {
+            // Generar un nombre único para la imagen
+            $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
+
+            // Mover la imagen al directorio
+            $imagen->move(public_path('img/instalaciones'), $nombreImagen);
+
+            $instalacion->imagen = 'img/instalaciones/' . $nombreImagen;
+        }
+
+        $instalacion->nombre = $request->input('nombre');
+        $instalacion->plazas = $request->input('plazas');
+        $instalacion->horario = $request->input('horario');
+        $instalacion->maxTiempo = $request->input('maxTiempo');
+        $instalacion->precio = $request->input('precio');
+        $instalacion->save();
+
+        return redirect()->back()->with('success', 'Imagen subida exitosamente.');
+    }
+
     public function showInstalacion($id)
     {
                 // Obtener la instalación
@@ -246,5 +282,13 @@ class InstalacionesController extends Controller
 
     // Redirigir a la página de instalaciones
     return redirect()->route('instalaciones.showInstalaciones');
+    }
+
+    public function eliminarInstalacion($id)
+    {
+        $instalacion = Installation::findOrFail($id);
+        $instalacion->delete();
+
+        return redirect()->route('instalacionesWebmaster.showInstalacionesWebmaster');
     }
 }
