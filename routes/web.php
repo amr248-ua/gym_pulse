@@ -19,8 +19,7 @@ use App\Http\Controllers\TiendaRopaController;
 */
 
 // routes/web.php
-Route::get('/tiendaropa/productos/{id}', [TiendaRopaController::class, 'mostrarDetallesProducto'])->name('productos.detalles');
-Route::get('/tiendaropa/catalogo', [TiendaRopaController::class, 'mostrarCatalogo'])->name('tiendaropa.catalogo');
+
 
 Route::get('/estadisticas', [EstadisticasController::class, 'index'])->name('estadisticas.index');
 
@@ -46,6 +45,8 @@ Route::post('reservarInstalacion', [InstalacionesController::class, 'reservarIns
 Route::get('instalacionesWebmaster', [InstalacionesController::class, 'listadoInstalaciones'])->name('instalacionesWebmaster.showInstalacionesWebmaster');
 Route::post('bloquear-instalacion/{id}', [InstalacionesController::class, 'bloquearInstalacion'])->name('bloquear_instalacion');
 Route::post('nueva-instalacion', [InstalacionesController::class, 'nuevaInstalacion'])->name('nueva_instalacion');
+Route::delete('eliminar-instalacion/{id}', [InstalacionesController::class, 'eliminarInstalacion'])->name('eliminar_instalacion');
+Route::put('actualizar-instalacion/{id}', [InstalacionesController::class, 'actualizarInstalacion'])->name('actualizar_instalacion');
 
 Route::get('perfil/{id}', [UserController::class, 'showDatos'])->name('perfil');
 Route::get('/usuarios/{id}/editar', [UserController::class, 'actualizarDatosView'])->name('perfil.actualizarDatosView');
