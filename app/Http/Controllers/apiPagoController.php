@@ -31,7 +31,7 @@ class apiPagoController extends Controller
         $html = $response->body();
 
         // Retorna la vista con el HTML
-        return view('tu-vista', ['html' => $html]);
+        return view('pagos', ['html' => $html]);
     }
 
 }
