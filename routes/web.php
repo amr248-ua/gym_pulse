@@ -85,4 +85,5 @@ Route::get('/crear-socio', [UserController::class, 'crearSocio'])->name('crear_s
 Route::post('/crear-socio', [UserController::class, 'crearSocio'])->name('crear_socio');
 
 //Pago
-Route::get('/llamar-api', [apiPagoController::class, 'llamarAPI'])->name('llamar-api');
+Route::post('/llamar-api', [apiPagoController::class, 'llamarAPI'])->name('llamar-api');
+Route::get('/transacciones/{id}', [UserController::class, 'showTransactions'])->name('historial_transacciones');

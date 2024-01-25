@@ -1,18 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\User;
+use App\Models\Transaction;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-
 class apiPagoController extends Controller
 {
-    public function llamarAPI()
+    public function llamarAPI(Request $request)
     {
         // Datos de autenticación y otros datos necesarios
         $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTB9.AmfT0rGLx2V1YHI9iBdcPCE6-Y41M6FJ5otw5uJrNd0';
         $concepto = 'Añadir saldo';
-        $cantidad = 100;
+        $cantidad = $request->input('cantidad');
+        $cuenta = $request->input('paypal');
+        $userID = $request->input('userID');
         // Generar un número aleatorio para receipt_number
         $receiptNumber = rand(100000, 999999);
         // URL de la API
@@ -25,16 +29,32 @@ class apiPagoController extends Controller
             'concept' => $concepto,
             'amount' => $cantidad,
             'receipt_number' => (string)$receiptNumber,
+            'payment' => [
+                'type' => 'paypal',
+                'values' => [
+                    'paypal_user' => $cuenta,
+                    'credit_card_number' => 'string',
+                    'credit_card_expiration_month' => 12,
+                    'credit_card_expiration_year' => 9999,
+                    'credit_card_csv' => 999,
+                ],
+            ],
         ]);
 
-        // Obtener el HTML desde la respuesta
         $html = $response->body();
+        $user = User::findOrFail($userID);
+        $user->saldo += $cantidad;
+        $user->save();
 
-        // Retorna la vista con el HTML
-        return view('pagos', [
-            'html' => $html,
-            'receiptNumber' => $receiptNumber,
-        ]);
+        $transaccion = new Transaction();
+        $transaccion->importe = $cantidad;
+        $transaccion->concepto = $concepto . " por valor de " . $cantidad . " a fecha de " . Carbon::today() . " al usuario con el id " . $userID;
+        $transaccion->user_id = $userID;
+        $transaccion->fecha = Carbon::today();
+        $transaccion->save();
+
+
+        return redirect()->route('perfil', ['id' => $userID]);
     }
 
     public function completarTransaccion($idTransaccion)
