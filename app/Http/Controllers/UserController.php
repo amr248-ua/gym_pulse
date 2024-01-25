@@ -9,6 +9,7 @@ use App\Models\NoUser;
 use App\Models\Installation;
 use App\Models\Activity;
 use App\Models\Fee;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -259,4 +260,11 @@ class UserController extends Controller
 
         return redirect()->back();
     }
+
+    public function showTransactions($id){
+        $transacciones = Transaction::where("user_id", $id)->paginate(5);
+        
+        return view('transacciones', compact('transacciones'));
+    }
+    
 }

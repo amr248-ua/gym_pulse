@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EstadisticasController;
 use App\Http\Controllers\TiendaRopaController;
+use App\Http\Controllers\apiPagoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +38,10 @@ Route::get('actividades', [ActividadesController::class, 'showActividades'])->na
 Route::get('actividades/{id}', [ActividadesController::class, 'showActividad'])->name('actividad');
 Route::post('reservarActividadRecepcionista', [ActividadesController::class, 'actividadRecepcionista'])->name('actividad.actividadRecepcionista');
 Route::post('reservarActividad', [ActividadesController::class, 'reservarActividad'])->name('actividad.reservarActividad');
+Route::post('nueva-actividad', [ActividadesController::class, 'nuevaActividad'])->name('nueva_actividad');
+Route::delete('eliminar-actividad/{id}', [ActividadesController::class, 'eliminarActividad'])->name('eliminar_actividad');
+Route::put('actualizar-actividad/{id}', [ActividadesController::class, 'actualizarActividad'])->name('actualizar_actividad');
+Route::get('actividadesWebmaster', [ActividadesController::class, 'listadoActividades'])->name('actividadesWebmaster.showActividadesWebmaster');
 
 Route::get('instalaciones', [InstalacionesController::class, 'showInstalaciones'])->name('instalaciones.showInstalaciones');
 Route::get('instalaciones/{id}', [InstalacionesController::class, 'showInstalacion'])->name('instalacion');
@@ -78,3 +83,7 @@ Route::get('/crear-recepcionista', [UserController::class, 'crearRecepcionista']
 Route::post('/crear-recepcionista', [UserController::class, 'crearRecepcionista'])->name('crear_recepcionista');
 Route::get('/crear-socio', [UserController::class, 'crearSocio'])->name('crear_socio');
 Route::post('/crear-socio', [UserController::class, 'crearSocio'])->name('crear_socio');
+
+//Pago
+Route::post('/llamar-api', [apiPagoController::class, 'llamarAPI'])->name('llamar-api');
+Route::get('/transacciones/{id}', [UserController::class, 'showTransactions'])->name('historial_transacciones');
