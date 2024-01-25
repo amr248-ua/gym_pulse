@@ -22,6 +22,81 @@ class ActividadesController extends Controller
         return view('activities.activities', compact('actividades'));
     }
 
+    public function listadoActividades()
+    {
+        $actividades = Activity::paginate(4);
+        return view('activities.actividadesWebmaster', compact('actividades'));
+    }
+
+    public function nuevaActividad(Request $request)
+    {
+        $request->validate([
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nombre' => 'required|string|max:255',
+            'plazas' => 'required|integer|min:1',
+            'descripcion' => 'required|string|max:255',
+            'duracion' => 'required|integer|min:1',
+            'precio' => 'required|numeric|min:0',
+        ]);
+
+
+        // Obtener el archivo de la solicitud
+        $imagen = $request->file('imagen');
+
+        // Generar un nombre único para la imagen
+        $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
+
+        // Mover la imagen al directorio
+        $imagen->move(public_path('img/actividades'), $nombreImagen);
+
+        $actividad = new Activity();
+        $actividad->nombre = $request->input('nombre');
+        $actividad->plazas = $request->input('plazas');
+        $actividad->descripcion = $request->input('descripcion');
+        $actividad->duracion = $request->input('duracion');
+        $actividad->precio = $request->input('precio');
+        $actividad->imagen = 'img/actividades/' . $nombreImagen;
+        $actividad->save();
+
+        return redirect()->back()->with('success', 'Imagen subida exitosamente.');
+    }
+
+    public function actualizarActividad(Request $request, $id)
+    {
+        $request->validate([
+            'imagen' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nombre' => 'required|string|max:255',
+            'plazas' => 'required|integer|min:1',
+            'descripcion' => 'required|string|max:255',
+            'duracion' => 'required|integer|min:1',
+            'precio' => 'required|numeric|min:0',
+        ]);
+
+        $actividad = Activity::findOrFail($id);
+
+        // Obtener el archivo de la solicitud
+        $imagen = $request->file('imagen');
+
+        if ($imagen) {
+            // Generar un nombre único para la imagen
+            $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
+
+            // Mover la imagen al directorio
+            $imagen->move(public_path('img/actividades'), $nombreImagen);
+
+            $actividad->imagen = 'img/actividades/' . $nombreImagen;
+        }
+
+        $actividad->nombre = $request->input('nombre');
+        $actividad->plazas = $request->input('plazas');
+        $actividad->descripcion = $request->input('descripcion');
+        $actividad->duracion = $request->input('duracion');
+        $actividad->precio = $request->input('precio');
+        $actividad->save();
+
+        return redirect()->back()->with('success', 'Imagen subida exitosamente.');
+    }
+
 
     public function showActividad($id)
     {
@@ -152,6 +227,14 @@ class ActividadesController extends Controller
 
     // Redirigir a la página de actividades
     return redirect()->route('actividades.showActividades');
+    }
+
+    public function eliminarActividad($id)
+    {
+        $actividad = Activity::findOrFail($id);
+        $actividad->delete();
+
+        return redirect()->route('actividadesWebmaster.showActividadesWebmaster');
     }
 }
 

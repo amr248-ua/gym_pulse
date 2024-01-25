@@ -38,6 +38,10 @@ Route::get('actividades', [ActividadesController::class, 'showActividades'])->na
 Route::get('actividades/{id}', [ActividadesController::class, 'showActividad'])->name('actividad');
 Route::post('reservarActividadRecepcionista', [ActividadesController::class, 'actividadRecepcionista'])->name('actividad.actividadRecepcionista');
 Route::post('reservarActividad', [ActividadesController::class, 'reservarActividad'])->name('actividad.reservarActividad');
+Route::post('nueva-actividad', [ActividadesController::class, 'nuevaActividad'])->name('nueva_actividad');
+Route::delete('eliminar-actividad/{id}', [ActividadesController::class, 'eliminarActividad'])->name('eliminar_actividad');
+Route::put('actualizar-actividad/{id}', [ActividadesController::class, 'actualizarActividad'])->name('actualizar_actividad');
+Route::get('actividadesWebmaster', [ActividadesController::class, 'listadoActividades'])->name('actividadesWebmaster.showActividadesWebmaster');
 
 Route::get('instalaciones', [InstalacionesController::class, 'showInstalaciones'])->name('instalaciones.showInstalaciones');
 Route::get('instalaciones/{id}', [InstalacionesController::class, 'showInstalacion'])->name('instalacion');
