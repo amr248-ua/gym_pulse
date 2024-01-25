@@ -13,7 +13,7 @@
                     <img src="{{ asset($transaccion->imagen) }}" class="card-img-top img-fluid" alt="{{ $transaccion->nombre }}">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <p class="mb-0 mr-2" style="padding-right: 10%">Saldo añadido: {{ $transaccion->importe }}</p>
+                            <p class="mb-0 mr-2" style="padding-right: 10%">Saldo añadido: {{ $transaccion->importe }}€</p>
                             <p class="mb-0">Fecha de factura: {{ $transaccion->fecha }}</p>
                         </div>
                     </div>

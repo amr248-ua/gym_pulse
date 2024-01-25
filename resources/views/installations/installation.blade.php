@@ -37,8 +37,8 @@
                                                 <input type="hidden" name="hora" value="{{ $hora }}">
                                                 <input type="hidden" name="precioSocio" value="{{ $precioSocio }}">
                                                 <input type="hidden" name="precioNoSocio" value="{{ $precioNoSocio }}">
-                                                <input type="hidden" name="usuario" value="{{ auth()->user()->id }}">
-                                                @if(Auth::user()->socio)
+                                                <input type="hidden" name="usuario" value="{{ Auth::user()->id }}">
+                                                @if(Auth::user()->socio && !Auth::user()->recepcionista)
                                                 <button type="submit" class="btn btn-danger">Reservar</button>
                                                 @endif
                                                 @if(Auth::user()->recepcionista)

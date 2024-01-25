@@ -36,6 +36,7 @@
                     <ul class="navbar-nav me-auto">
                     
                             @auth
+                            @if(Auth::user()->socio)
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('actividades.showActividades') }}">{{ __('Actividades') }}</a>
                                 </li>
@@ -46,6 +47,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('instalaciones.showInstalaciones') }}">{{ __('Reserva') }}</a>
                                 </li>
+                                @endif
                                 @if(Auth::user()->recepcionista)
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('recepcion.view') }}">{{ __('Recepcionista') }}</a>
@@ -98,9 +100,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                @if(Auth::user()->socio)
                                     <a class="dropdown-item" href="{{ route('perfil', Auth::user()->id) }}">
                                         {{ __('Perfil') }}
                                     </a>
+                                    @endif
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
