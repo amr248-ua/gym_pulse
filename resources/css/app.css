@@ -1,0 +1,25 @@
+.square-card {
+    height: 400px; /* Ajusta la altura según tus preferencias */
+    width: 400px; /* Establece la anchura igual a la altura */
+}
+/* Navbar Styles */
+.navbar {
+    background-color: black; /* Fondo negro para la barra de navegación */
+    color: white; /* Texto blanco en la barra de navegación */
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: white !important; /* Color de texto blanco en los enlaces de la barra de navegación */
+}
+
+/* Footer Styles */
+.footer {
+    background-color: black; /* Fondo negro para el pie de página */
+    color: white; /* Texto blanco en el pie de página */
+    padding: 20px; /* Ajusta el espaciado interno según sea necesario */
+}
+
+/* Ajuste de margen superior para que el pie de página no cubra el contenido */
+main {
+    margin-bottom: 60px; /* Ajusta según sea necesario */
+}
