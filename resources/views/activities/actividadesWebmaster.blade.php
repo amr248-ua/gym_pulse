@@ -5,14 +5,14 @@
     <div class="row">
         <div class="col-md-12">
             @if(Auth::user()->webmaster)
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Añadir actividad</button>
+                <button type="button" style="background-color: transparent; color: green; border: none; font-size: 120%" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Añadir actividad</button>
             @endif
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Nueva actividad</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" style="background-color: transparent; color: red; border: none; font-size: 120%" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -27,7 +27,7 @@
                                                     <input type="hidden" name="duracion" value=60>
                                                     <input type="number" id="precio" name="precio" step="0.01" min="0" placeholder="Ingrese el precio" required>
                                                     <input type="file" name="imagen" accept="image/*" required>
-                                <button type="submit" class="btn btn-success">Añadir</button>
+                                <button type="submit" style="background-color: transparent; color: red; border: none; font-size: 120%" class="btn btn-success">Añadir</button>
                             </form>
                         </div>
                     </div>
@@ -51,13 +51,13 @@
                             </td>
                             <td class="text-right">
                                 @csrf
-                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal{{ $actividad->id }}">Ver Detalles</button>
-                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editModal{{ $actividad->id }}">Modificar</button>
+                                <button type="button" style="background-color: transparent; color: gray; border: none; font-size: 120%" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal{{ $actividad->id }}">Ver Detalles</button>
+                                <button type="button" style="background-color: transparent; color: blue; border: none; font-size: 120%" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editModal{{ $actividad->id }}">Modificar</button>
 
                                 <form action="{{ route('eliminar_actividad', ['id' => $actividad->id]) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">
+                                    <button style="background-color: transparent; color: red; border: none; font-size: 120%" type="submit" class="btn btn-danger btn-sm">
                                         <span>Eliminar</span>
                                     </button>
                                 </form>
@@ -68,7 +68,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Detalles de la actividad</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" style="background-color: transparent; color: gray; border: none; font-size: 120%" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -83,7 +83,7 @@
                                                     <input type="hidden" name="duracion" value=60>
                                                     <input type="number" id="precio" name="precio" step="0.01" min="0" placeholder="Ingrese el precio" value="{{$actividad->precio}}">
                                                     <input type="file" name="imagen" accept="image/*">
-                                                    <button type="submit" class="btn btn-success">Editar</button>
+                                                    <button type="submit" style="background-color: transparent; color: red; border: none; font-size: 120%" class="btn btn-success">Editar</button>
                                                 </form>
                                             </div>
                                         </div>
